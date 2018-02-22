@@ -6,6 +6,7 @@
 {% block content %}
 {% if user.is_authenticated %}
   Hi {{ user.username }}!
+  <p>hi fam</p>
   <p>This is where the tickets will be displayed. Tickets tickets tickets, woohoo!</p>
   <p><a href="{% url 'logout' %}">logout</a></p>
 {% else %}
