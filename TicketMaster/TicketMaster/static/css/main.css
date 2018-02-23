@@ -1,0 +1,51 @@
+html {
+    -webkit-font-smoothing: antialiased;
+    height:100%;
+}
+
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    height: 100%;
+    overflow-y: inherit;
+    
+    background: url(../img/background.jpeg) no-repeat center center fixed;
+    -webkit-background-size: auto;
+    -moz-background-size: auto;
+    -o-background-size: auto;
+    background-size: cover;
+}
+
+hr {
+    border: 0;
+    border-top: 2px solid white;
+}
+
+a {
+    text-decoration: underline;
+}
+
+.login-input {
+    max-width: 300px;
+}
+
+#login-banner {
+    background: rgba(0, 0, 0, 0.65);
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+}
+
+#loginButton {
+    background-color: #32CD32;
+    margin: auto;
+    margin-top: 20px;
+    max-width: 240px;
+}
+
+
+.alert-danger {
+    background-color: #FF3333;
+    color: white;
+    border: none;
+    font-size: 80%;
+}
