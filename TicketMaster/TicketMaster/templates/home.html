@@ -8,6 +8,12 @@
   Hi {{ user.username }}!
   <p>hi fam</p>
   <p>This is where the tickets will be displayed. Tickets tickets tickets, woohoo!</p>
+{% for ticket in tickets %}
+    <div style="background-color:beige">
+        <p>this is a ticket</p>
+        <p>The ticket room is: {{ ticket.room }}</p>
+    </div>
+{% endfor %}
   <p><a href="{% url 'logout' %}">logout</a></p>
 {% else %}
   <p>You are not logged in</p>
