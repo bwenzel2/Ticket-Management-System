@@ -1,22 +1,111 @@
-<!-- templates/home.html-->
-{% extends 'base.html' %}
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Home</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    </head>
 
-{% block title %}Home{% endblock %}
+    <body style="padding-top: 65px">
+        <!--top navbar-->
+        <nav class="navbar navbar-toggleable navbar-inverse fixed-top bg-inverse">
+            <a class="navbar-brand" href="#">Easy Ticket</a>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ user.username }}</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        
+        <div class="container-fluid">
+        {% block content %} 
+        {% if user.is_authenticated %} 
+            <!-- new ticket button-->
+            <button type="button" class="btn btn-lg btn-success mt-3">New Ticket</button>      
+            
+            <!--ticket view card-->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h4 class="mt-2 mb-3">Tickets</h4>
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">Open</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">In Progress</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="#">Closed</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="#">All</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                {% for ticket in tickets %}
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <small><b>Ticket #{{ ticket.id }}</b></small>
+                        <small style="font-size:11px">{{ ticket.created_date }}</small>
+                    </div>
+                    <small>Status: {{ ticket.get_status_display }}</small>
+                    <small style="font-size:11px">This is a simple ticket description. The person who reported this said the computer didn't turn on when the power button was pressed, and that all plugs were securely in their...</small>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <small><b>Ticket #{{ ticket.id }}</b></small>
+                        <small style="font-size:11px">{{ ticket.created_date }}</small>
+                    </div>
+                    <small>Status: {{ ticket.get_status_display }}</small>
+                    <small style="font-size:11px">This is a simple ticket description. The person who reported this said the computer didn't turn on when the power button was pressed, and that all plugs were securely in their...</small>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <small><b>Ticket #{{ ticket.id }}</b></small>
+                        <small style="font-size:11px">{{ ticket.created_date }}</small>
+                    </div>
+                    <small>Status: {{ ticket.get_status_display }}</small>
+                    <small style="font-size:11px">This is a simple ticket description. The person who reported this said the computer didn't turn on when the power button was pressed, and that all plugs were securely in their...</small>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <small><b>Ticket #{{ ticket.id }}</b></small>
+                        <small style="font-size:11px">{{ ticket.created_date }}</small>
+                    </div>
+                    <small>Status: {{ ticket.get_status_display }}</small>
+                    <small style="font-size:11px">This is a simple ticket description. The person who reported this said the computer didn't turn on when the power button was pressed, and that all plugs were securely in their...</small>
+                </a>
+        
+                {% endfor %}
+            </div>
+                </div>
+                <div class="card-footer">
+                    This is some card footer text
+                </div>
+            </div>
+        {% else %}
+        <p>You are not logged in</p>
+        <a href="{% url 'login' %}">login</a> {% endif %} {% endblock %}
+        </div>
+    </body>
+    
+    
+    <!-- scripts -->
+    
+    <!--jquery-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    
+    <!--popper-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    
+    <!--bootstrap.min.js-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    
+</html>
 
-{% block content %}
-{% if user.is_authenticated %}
-  Hi {{ user.username }}!
-  <p>hi fam</p>
-  <p>This is where the tickets will be displayed. Tickets tickets tickets, woohoo!</p>
-{% for ticket in tickets %}
-    <div style="background-color:beige">
-        <p>this is a ticket</p>
-        <p>The ticket room is: {{ ticket.room }}</p>
-    </div>
-{% endfor %}
-  <p><a href="{% url 'logout' %}">logout</a></p>
-{% else %}
-  <p>You are not logged in</p>
-  <a href="{% url 'login' %}">login</a>
-{% endif %}
-{% endblock %}
+
