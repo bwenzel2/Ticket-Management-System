@@ -76,8 +76,14 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        #'ENGINE': 'django.db.backends.sqlite3',
+        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'tickets_db',#get_env_variable('DATABASE_NAME'),
+        'USER': os.getenv('EASYTICKET_DB_USER'),#get_env_variable('DATABASE_USER'),
+        'PASSWORD': os.getenv('EASYTICKET_DB_PASS'),#get_env_variable('DATABASE_PASSWORD'),
+        'HOST': '',
+        'PORT': '',
     }
 }
 
@@ -106,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/New_York'
 
 USE_I18N = True
 
