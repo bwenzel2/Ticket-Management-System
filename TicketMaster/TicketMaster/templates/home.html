@@ -82,30 +82,28 @@
                         </div>
                     </div>--->
                     <table id="ticketTable" class="table table-hover table-bordered mt-2" cellspacing="0" width="100%">
-					<thead class="thead-inverse">
-						<tr>
-							<th>Ticket #</th>
-							<th>Description</th>
-							<th>Creation Date</th>
-						</tr>
-					</thead>
-                    <tbody style="font-size: 12">
-                        {% for ticket in tickets %}
-                            <tr class-"clickable-row" data-toggle="modal" data-target="#ticketDetailModal">
-                                <td>{{ ticket.id}}</td>
-                                <td>{{ ticket.description }}</td>
-                                <td>{{ ticket.created_date }}</td>
+                        <thead class="thead-inverse">
+                            <tr>
+                                <th>Ticket #</th>
+                                <th>Description</th>
+                                <th>Creation Date</th>
                             </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody style="font-size: 12">
+                            {% for ticket in tickets %}
+                                <tr class-"clickable-row" data-toggle="modal" data-target="#ticketDetailModal">
+                                    <td>{{ ticket.id}}</td>
+                                    <td>{{ ticket.description }}</td>
+                                    <td>{{ ticket.created_date }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
                 
                 
-            </div>
-            <!-- end ticket card view -->
-        </div>
-        <!-- end container-fluid -->
+            </div> <!-- ticket card view -->
+        </div> <!-- container-fluid -->
         
         <!--new ticket modal window-->
         <div id="newTicketModel" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -117,7 +115,7 @@
                               <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form id="ticketForm" method="POST" class="post-form">
+                    <form id="ticketForm" method="POST" action="{% url 'new_ticket' %}" class="post-form">
                         {% csrf_token %}
                         <div class="modal-body">
                             {{ form.as_p }}
@@ -133,11 +131,11 @@
                                     <a class="dropdown-item" href="#">2 - Kinda urgent</a>
                                     <a class="dropdown-item" href="#">3 - Not So Urgent</a>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="form-group mt-3">
                                 <label for="comment">Description:</label>
-                                <textarea class="form-control" id="description" style="resize: none"></textarea>
-                            </div>-->
+                                <textarea class="form-control" id="description" name="description" style="resize: none"></textarea>
+                            </div>
                         </div>
                         <div class="modal-footer">
 
@@ -176,9 +174,8 @@
     <!-- scripts -->
     <script>
     $('#ticketForm').on('submit', function(event){
-    event.preventDefault();
-    console.log("form submitted!")
-});
+        console.log("form submitted!")
+    });
     </script>
     <!--jquery-->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

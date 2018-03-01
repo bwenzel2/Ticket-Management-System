@@ -4,6 +4,9 @@ from django.shortcuts import redirect
 from .models import Ticket
 from TicketMaster.forms import TicketForm
 
+import logging
+logger = logging.getLogger(__name__)
+
 
 # Create your views here.
 def custom_login(request):
@@ -16,27 +19,19 @@ def home(request):
 	else:
 		return redirect('login')
 		
-def add_ticket(request):
-	# Get the context from the request.
-	context = RequestContext(request)
+def new_ticket(request):
+	
+	#return redirect('home')
+	
 
 	# A HTTP POST?
 	if request.method == 'POST':
-		form = TicketForm(request.POST)
-		
-		# Have we been provided with a valid form?
-		if form.is_valid():
-			# Save the new category to the database.
-			form.save(commit=True)
-
-			# Now call the index() view.
-			# The user will be shown the homepage.
-			return index(request)
-		else:
-			# The supplied form contained errors - just print them to the terminal.
-			print(form.errors)
-		return render_to_response('home.html', {'form': form}, context)
-	else:
-		return redirect('login')
+		desc = request.POST.get('description', "")
+		# only add the new ticket if the description is not empty
+		# TO-DO: add validation to prevent this from happening!
+		if desc != "":
+			# add a new ticket
+			t = Ticket.objects.create(description=desc).save()
+	return redirect('home')
 		
 
