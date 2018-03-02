@@ -4,9 +4,6 @@ from django.shortcuts import redirect
 from .models import Ticket
 from TicketMaster.forms import TicketForm
 
-import logging
-logger = logging.getLogger(__name__)
-
 
 # Create your views here.
 def custom_login(request):
@@ -26,12 +23,12 @@ def new_ticket(request):
 
 	# A HTTP POST?
 	if request.method == 'POST':
-		desc = request.POST.get('description', "")
+		desc = request.POST.get('description')
 		# only add the new ticket if the description is not empty
 		# TO-DO: add validation to prevent this from happening!
 		if desc != "":
 			# add a new ticket
-			t = Ticket.objects.create(description=desc).save()
+			t = Ticket.objects.create(description=desc, creator=request.user)
 	return redirect('home')
 		
 

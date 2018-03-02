@@ -86,6 +86,7 @@
                             <tr>
                                 <th>Ticket #</th>
                                 <th>Description</th>
+                                <th>Creator</th>
                                 <th>Creation Date</th>
                             </tr>
                         </thead>
@@ -94,6 +95,7 @@
                                 <tr class-"clickable-row" data-toggle="modal" data-target="#ticketDetailModal">
                                     <td>{{ ticket.id}}</td>
                                     <td>{{ ticket.description }}</td>
+                                    <td>{{ ticket.creator }}</td>
                                     <td>{{ ticket.created_date }}</td>
                                 </tr>
                             {% endfor %}

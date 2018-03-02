@@ -12,8 +12,9 @@ class Ticket(models.Model):
 		  )
 	#external_id = models.UUIDField(default=uuid.uuid4)
 	#room = models.CharField(max_length=200, default='')
+	creator = models.ForeignKey('auth.User', on_delete=models.PROTECT, default=1)
 	created_date = models.DateTimeField(default=timezone.now)
-	description = models.TextField(default="This is the default description")
+	description = models.TextField(default="")
 	#status = models.IntegerField(choices=STATUS_CHOICES, default=0)
 	#update_messages = ArrayField(
 	#		models.CharField(max_length=500, default=''),
