@@ -80,10 +80,13 @@ a {
 
 /* add padding  */
 
-.left-addon input {
-    padding-left: 30px;
+td {
+  border: 1px solid black;
+  width: 50px;
+  display:block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.right-addon input {
-    padding-right: 30px;
-}
+
