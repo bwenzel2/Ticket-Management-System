@@ -114,7 +114,7 @@
                             <td>{{ ticket.get_status_display }}</td>
                             <td>{{ ticket.description }}</td>
                             <td>{{ ticket.creator }}</td>
-                            <td>{{ ticket.creation_date }}</td>
+                            <td>{{ ticket.creation_date|date:"m, d of Y" }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -141,21 +141,46 @@
                     {% csrf_token %}
                     <div class="modal-body">
                         {{ form.as_p }}
-
-                        <input type="text" class="form-control mb-3" placeholder="Requestor" aria-describedby="basic-addon2">
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Dropdown button
-                                </button>
-                            <div class="dropdown-menu" aria-labelledby="Urgency">
-                                <a class="dropdown-item" href="#">1 - Urgent</a>
-                                <a class="dropdown-item" href="#">2 - Kinda urgent</a>
-                                <a class="dropdown-item" href="#">3 - Not So Urgent</a>
+                        <br>
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-2 col-form-label">Location</label>
+                            <div class="col-10">
+                                <input class="form-control" type="text" placeholder="Building Name, Room Number" id="example-text-input">
                             </div>
                         </div>
-                        <div class="form-group mt-3">
-                            <label for="comment">Description:</label>
-                            <textarea class="form-control" id="description" name="description" style="resize: none"></textarea>
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-2 col-form-label">Requestor</label>
+                            <div class="col-10">
+                                <input class="form-control" type="text" placeholder="The Benefactor" id="example-text-input">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-2 col-form-label">Recipient</label>
+                            <div class="col-10">
+                                <input class="form-control" type="text" placeholder="The Beneficiary" id="example-text-input">
+                            </div>
+                        </div>
+                        <fieldset disabled>
+                            <div class="form-group row">
+                                <label for="disabledTextInput" class="col-2 col-form-label">Status</label>
+                                <div class="col-10">
+                                    <input class="form-control" type="text" placeholder="Open" id="disabledInput">
+                                </div>
+                            </div>
+                        </fieldset>
+                        <br><div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Urgency Level
+                                </button>
+                            <div class="dropdown-menu" aria-labelledby="Urgency">
+                                <a class="dropdown-item" href="#">High</a>
+                                <a class="dropdown-item" href="#">Medium</a>
+                                <a class="dropdown-item" href="#">Low</a>
+                            </div>
+                        </div><br>
+                        <div class="form-group">
+                            <label for="exampleTextarea">Description:</label>
+                            <textarea class="form-control" id="description" name="description" rows="5"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
