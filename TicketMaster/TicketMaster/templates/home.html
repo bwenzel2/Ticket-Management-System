@@ -109,12 +109,12 @@
                     </thead>
                     <tbody style="font-size: 12">
                         {% for ticket in tickets %}
-                        <tr class- "clickable-row" data-toggle="modal" data-target="#ticketDetailModal">
+                        <tr class- "clickable-row">
                             <td>{{ ticket.id }}</td>
                             <td>{{ ticket.get_status_display }}</td>
                             <td>{{ ticket.description }}</td>
                             <td>{{ ticket.creator }}</td>
-                            <td>{{ ticket.creation_date|date:"m, d of Y" }}</td>
+                            <td>{{ ticket.creation_date}}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -140,7 +140,6 @@
                 <form id="ticketForm" method="POST" action="{% url 'new_ticket' %}" class="post-form">
                     {% csrf_token %}
                     <div class="modal-body">
-                        {{ form.as_p }}
                         <br>
                         <div class="form-group row">
                             <label for="example-text-input" class="col-2 col-form-label">Location</label>
@@ -204,7 +203,7 @@
                         </button>
                 </div>
                 <div class="modal-body">
-
+                    <p id="desc"></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" disabled>Update Ticket</button>
@@ -218,6 +217,28 @@
 
 
 <!-- scripts -->
+    
+<script>
+var table = document.getElementsByTagName("table")[0];
+var tbody = table.getElementsByTagName("tbody")[0];
+tbody.onclick = function (e) {
+    e = e || window.event;
+    var data = [];
+    var target = e.srcElement || e.target;
+    while (target && target.nodeName !== "TR") {
+        target = target.parentNode;
+    }
+    if (target) {
+        var cells = target.getElementsByTagName("td");
+        var ticketid = cells[0].innerHTML;
+    }
+    $('#desc').html("Ticket id: " + ticketid);
+    //get the ticket info via an AJAX call here
+    
+    $('#ticketDetailModal').modal('show'); 
+    
+};
+</script>
 <script>
     $('#ticketForm').on('submit', function(event) {
         console.log("form submitted!")
