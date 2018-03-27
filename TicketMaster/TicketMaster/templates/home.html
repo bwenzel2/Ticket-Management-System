@@ -114,7 +114,7 @@
                             <td>{{ ticket.get_status_display }}</td>
                             <td>{{ ticket.description }}</td>
                             <td>{{ ticket.creator }}</td>
-                            <td>{{ ticket.creation_date|date:"m, d of Y" }}</td>
+                            <td>{{ ticket.created_date }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
