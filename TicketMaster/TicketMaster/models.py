@@ -1,14 +1,13 @@
-from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.utils import timezone
 import uuid
-from hashids import Hashids
+#from hashids import Hashids
 import time
 from django.db import transaction
 
 class Ticket(models.Model):
 	
-	hashids = Hashids(alphabet='ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
+	#hashids = Hashids(alphabet='ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
 	
 	STATUS_CHOICES = (
 				(0,'Open'),
