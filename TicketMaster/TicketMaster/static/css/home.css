@@ -1,0 +1,55 @@
+/* stylesheet for the home page */
+
+#ticketTable  {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.ellipses {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.trunc {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:inherit;
+}
+
+.pull-right{
+  float:right;
+  }
+#head-navbar {
+  width: 100%;
+  white-space: nowrap;
+  display: inline-block;
+  overflow: hidden;
+}
+.nav>li {
+  display: inline-block;
+  width:initial;
+  float:left;
+  white-space: nowrap;
+}
+.nav { 
+  display: inline-block;
+}
+
+/*th.id, td.id {
+    
+}
+
+th.status, td.status {
+
+}
+
+th.ctr, td.ctr {
+    
+}
+
+th.ctr_date, td.ctr_date {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+} */
