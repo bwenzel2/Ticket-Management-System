@@ -76,17 +76,3 @@ a {
 .right-addon .glyphicon {
     right: 0px;
 }
-
-
-/* add padding  */
-
-td {
-  border: 1px solid black;
-  width: 50px;
-  display:block;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-

@@ -1,8 +1,10 @@
+{% load static %}
 <html>
     <head>
     <meta charset="utf-8">
     <title>Home</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}" type="text/css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
@@ -32,13 +34,11 @@
             $('#orderModal').data('orderid', $(this).data('id'));
         });
     </script>
-
 </head>
 
-<body style="padding-top: 65px">
-    <!--top navbar-->
-    <nav class="navbar navbar-toggleable navbar-inverse fixed-top bg-inverse">
-        <a class="navbar-brand" href="#">Easy Ticket</a>
+<body>
+    <nav class="navbar navbar-toggleable navbar-inverse bg-inverse navbar-fixed-top">
+        <a href="/" class="navbar-brand">Easy Ticket</a>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item mt-2">
                 <i class="fas fa-user fa-lg" style="color:lightgray"></i>
@@ -53,15 +53,13 @@
     </nav>
 
     <div class="container-fluid">
-
-
         <!-- new ticket button-->
         <button type="button" class="btn btn-lg btn-success mt-3" data-toggle="modal" data-target="#newTicketModel">New Ticket</button>
 
         <!-- ticket card view -->
         <div class="card mt-4">
             <div class="card-header">
-                <ul class="nav nav-tabs card-header-tabs pull-right" id="myTab" role="tablist">
+                <ul class="nav nav-tabs card-header-tabs pull-left" id="myTab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#allTab" role="tab" aria-controls="home" aria-selected="true">Open</a>
                     </li>
@@ -77,34 +75,15 @@
                 </ul>
             </div>
             <div class="card-body mx-2" style="overflow-x: scroll">
-                <!--
-                    <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="openTab" role="tabpanel" aria-labelledby="home-tab">This is the open tab</div>
-                        <div class="tab-pane fade" id="inProgressTab" role="tabpanel" aria-labelledby="profile-tab">...</div>
-                        <div class="tab-pane fade" id="closedTab" role="tabpanel" aria-labelledby="contact-tab">...</div>
-                        <div class="tab-pane fade" id="allTab" role="tabpanel" aria-labelledby="contact-tab">
-                            <div class="list-group">
-                                {% for ticket in tickets %}
-                                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <small><b>Ticket #{{ ticket.id }}</b></small>
-                                        <small style="font-size:11px">{{ ticket.created_date }}</small>
-                                    </div>
-                                    <small>Status: {{ ticket.get_status_display }}</small>
-                                    <small style="font-size:11px">This is a simple ticket description. The person who reported this said the computer didn't turn on when the power button was pressed, and that all plugs were securely in their...</small>
-                                </a>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>-->
-                <table id="ticketTable" class="table table-hover table-bordered mt-2" cellspacing="0" width="100%">
+               
+                <table id="ticketTable" class="table table-hover table-bordered mt-2">
                     <thead class="thead-inverse">
                         <tr>
-                            <th>Ticket #</th>
-                            <th>Status</th>
-                            <th>Description</th>
-                            <th>Creator</th>
-                            <th>Creation Date</th>
+                            <th class="trunc" style="width: 7%">Ticket #</th>
+                            <th style="width:7%">Status</th>
+                            <th style="width:63%">Description</th>
+                            <th style="width:10%">Creator</th>
+                            <th class="trunc" style="width:13%">Creation Date</th>
                         </tr>
                     </thead>
                     <tbody style="font-size: 12">
@@ -112,9 +91,9 @@
                         <tr class- "clickable-row">
                             <td>{{ ticket.id }}</td>
                             <td>{{ ticket.get_status_display }}</td>
-                            <td>{{ ticket.description }}</td>
+                            <td class="ellipses">{{ ticket.description }}</td>
                             <td>{{ ticket.creator }}</td>
-                            <td>{{ ticket.created_date }}</td>
+                            <td class="ellipses">{{ ticket.creation_date }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -252,7 +231,18 @@ tbody.onclick = function (e) {
 
 <!--bootstrap.min.js-->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-    
+
+<!--used for table size when window is resized-->
+<script type="text/javascript" >    
+window.onresize = function() {
+    if (window.innerWidth > 1000) {
+        document.getElementById("ticketTable").style.width = "100%";  
+    }
+    else {
+        document.getElementById("ticketTable").style.width = "950px";
+    }
+}
+</script>  
 </html>
 
 
