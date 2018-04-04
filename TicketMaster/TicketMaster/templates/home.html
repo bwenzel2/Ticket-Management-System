@@ -147,16 +147,16 @@
                                 </div>
                             </div>
                         </fieldset>
-                        <br><div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Urgency Level
-                                </button>
-                            <div class="dropdown-menu" aria-labelledby="Urgency">
-                                <a class="dropdown-item" href="#">High</a>
-                                <a class="dropdown-item" href="#">Medium</a>
-                                <a class="dropdown-item" href="#">Low</a>
+                        <br> <div class="form-group">
+                        <select class="custom-select" required>
+                                <option value="">Urgency level</option>
+                                <option value="1" href="#">High</option>
+                                <option value="2" href="#">Medium</option>
+                                <option value="3" href="#">Low</option>
+                            </select>
                             </div>
-                        </div><br>
+                        
+                        <br><br>
                         <div class="form-group">
                             <label for="exampleTextarea">Description:</label>
                             <textarea class="form-control" id="description" name="description" rows="5"></textarea>
