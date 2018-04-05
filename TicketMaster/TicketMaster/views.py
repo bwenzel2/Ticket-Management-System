@@ -3,6 +3,8 @@ from django.contrib.auth.views import login
 from django.shortcuts import redirect
 from .models import Ticket
 from TicketMaster.forms import TicketForm
+from django.core import serializers
+from django.http import HttpResponse
 
 
 # Create your views here.
@@ -17,11 +19,6 @@ def home(request):
 		return redirect('login')
 		
 def new_ticket(request):
-	
-	#return redirect('home')
-	
-
-	# A HTTP POST?
 	if request.method == 'POST':
 		desc = request.POST.get('description')
 		# only add the new ticket if the description is not empty
@@ -30,5 +27,31 @@ def new_ticket(request):
 			# add a new ticket
 			t = Ticket.objects.create(description=desc, creator=request.user)
 	return redirect('home')
+	
+def get_ticket_details(request):
+	ticket_id = request.GET.get('ticket_id')
+	
+	ticket = Ticket.objects.filter(id=ticket_id)
+	response = serializers.serialize("json", ticket)
+	return HttpResponse(response, content_type='application/json')
+		
+	
+def new_update(request):
+	if request.method == 'POST':
+		desc = request.POST.get('description')
+		ticket_id = request.POST.get('ticket_id')
+		update = Update.objects.create(description=desc, ticket = Ticket.objects.get(pk=ticket_id))		
+	return redirect('home')
+	
+def get_updates(request):
+	if request.method == 'GET':
+		updates = Ticket.objects.all()
+		
+		#https://stackoverflow.com/questions/26373992/use-jsonresponse-to-serialize-a-queryset-in-django-1-7
+		response = serializers.serialize("json", updates)
+		return HttpResponse(response, content_type='application/json')
+		
+	else:
+		return redirect('login')
 		
 

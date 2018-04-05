@@ -3,36 +3,22 @@
     <head>
     <meta charset="utf-8">
     <title>Home</title>
+        
+        
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/home.css' %}" type="text/css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 
+        
     <!-- dataTables -->
     <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
     <script type="text/javascript" charset="utf-8">
-        $(document).ready(function() {
-            $('#ticketTable').DataTable();
-        });
-        
-        $('#ticketDetailModal').modal({
-            keyboarnd: true,
-            backdrop: "static",
-            show: false,
-
-        }).on('show.bs.modal', function() {
-            var getIdFromRow = $(this).data('id');
-            //make your ajax call populate items or what even you need
-            $(this).find('#orderDetails').html($('<b> Order Id selected: ' + getIdFromRow + '</b>'))
-        });
-
-        $(".table-striped").find('tr[data-target]').on('click', function() {
-            //or do your operations here instead of on show of modal to populate values to modal.
-            $('#orderModal').data('orderid', $(this).data('id'));
-        });
+        //$(document).ready(function() {
+        //    $('#ticketTable').DataTable();
+        //});
     </script>
 </head>
 
@@ -77,14 +63,14 @@
             </div>
             <div class="card-body mx-2" style="overflow-x: scroll">
                
-                <table id="ticketTable" class="table table-hover table-bordered mt-2">
+                <table id="ticketTable" class="table table-responsive table-hover table-bordered mt-2">
                     <thead class="thead-inverse">
                         <tr>
-                            <th class="trunc" style="width: 7%">Ticket #</th>
-                            <th style="width:7%">Status</th>
-                            <th style="width:63%">Description</th>
-                            <th style="width:10%">Creator</th>
-                            <th class="trunc" style="width:13%">Creation Date</th>
+                            <th class="trunc">Ticket #</th>
+                            <th>Status</th>
+                            <th>Description</th>
+                            <th>Creator</th>
+                            <th class="trunc">Creation Date</th>
                         </tr>
                     </thead>
                     <tbody style="font-size: 12">
@@ -147,23 +133,23 @@
                                 </div>
                             </div>
                         </fieldset>
-                        <br> <div class="form-group">
-                        <select class="custom-select" required>
+                        <br> 
+                        <div class="form-group">
+                            <select class="custom-select" required>
                                 <option value="">Urgency level</option>
                                 <option value="1" href="#">High</option>
                                 <option value="2" href="#">Medium</option>
                                 <option value="3" href="#">Low</option>
                             </select>
                             </div>
-                        
-                        <br><br>
+                        <br>
+                        <br>
                         <div class="form-group">
                             <label for="exampleTextarea">Description:</label>
                             <textarea class="form-control" id="description" name="description" rows="5"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
-
                         <button type="submit" class="btn btn-primary">Create Ticket</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     </div>
@@ -186,7 +172,11 @@
                     <p id="desc"></p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" disabled>Update Ticket</button>
+                    <button id="update_btn" type="button" class="btn btn-primary" onclick="$.ajax({
+        url: '/get_updates/',
+        success: function(result){alert('Success' + JSON.stringify(result));},
+        error: function(status){alert('Error: ' + JSON.stringify(status));}
+    });">Update Ticket</button>
                     <button type="button" class="btn btn-primary" disabled>Close Ticket</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 </div>
@@ -198,6 +188,9 @@
 
 <!-- scripts -->
     
+<!-- for update ticket button -->
+
+    
 <script>
 var table = document.getElementsByTagName("table")[0];
 var tbody = table.getElementsByTagName("tbody")[0];
@@ -208,12 +201,24 @@ tbody.onclick = function (e) {
     while (target && target.nodeName !== "TR") {
         target = target.parentNode;
     }
+    var ticketid;
     if (target) {
         var cells = target.getElementsByTagName("td");
-        var ticketid = cells[0].innerHTML;
+        ticketid = cells[0].innerHTML;
     }
     $('#desc').html("Ticket id: " + ticketid);
     //get the ticket info via an AJAX call here
+    
+    $.ajax({
+        url: '/get_ticket_details/',
+        data : {ticket_id : ticketid},
+        success: function(result) {
+            //alert('Success' + JSON.stringify(result));
+            var description = result[0].fields.description;
+            $('#desc').html("Ticket description: " + description);                     
+        },
+        error: function(status){alert('Error: ' + JSON.stringify(status));}
+    });
     
     $('#ticketDetailModal').modal('show'); 
     
@@ -224,8 +229,13 @@ tbody.onclick = function (e) {
         console.log("form submitted!")
     });
 </script>
+    
+    
+    
 <!--jquery-->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script>src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
 
 <!--popper-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
