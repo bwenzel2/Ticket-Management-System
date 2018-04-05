@@ -62,20 +62,19 @@
                 </ul>
             </div>
             <div class="card-body mx-2" style="overflow-x: scroll">
-               
-                <table id="ticketTable" class="table table-responsive table-hover table-bordered mt-2">
+                <table id="ticketTable" class="table table- mt-2">
                     <thead class="thead-inverse">
                         <tr>
-                            <th class="trunc">Ticket #</th>
-                            <th>Status</th>
-                            <th>Description</th>
-                            <th>Creator</th>
-                            <th class="trunc">Creation Date</th>
+                            <th style="width: 90px; max-width: 90px;">Ticket #</th>
+                            <th style="width: 90px">Status</th>
+                            <th style="width: 400px">Description</th>
+                            <th style="width: 90px">Creator</th>
+                            <th style="width: 180px">Creation Date</th>
                         </tr>
                     </thead>
                     <tbody style="font-size: 12">
                         {% for ticket in tickets %}
-                        <tr class- "clickable-row">
+                        <tr class="clickable-row">
                             <td>{{ ticket.id }}</td>
                             <td>{{ ticket.get_status_display }}</td>
                             <td class="ellipses">{{ ticket.description }}</td>
@@ -169,15 +168,60 @@
                         </button>
                 </div>
                 <div class="modal-body">
-                    <p id="desc"></p>
-                </div>
-                <div class="modal-footer">
-                    <button id="update_btn" type="button" class="btn btn-primary" onclick="$.ajax({
-        url: '/get_updates/',
+                    <div class="form-group row">
+                        <label for="example-text-input" class="col-2 col-form-label">Location</label>
+                        <div class="col-10">
+                            <input readonly class="form-control" type="text" value="The Placeholder" id="example-text-input">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="example-text-input" class="col-2 col-form-label">Requestor</label>
+                        <div class="col-10">
+                            <input readonly class="form-control" type="text" value="The Placeholder Requestor" id="example-text-input">
+                        </div>
+                    </div>
+                    <p>Status: placeholder</p>
+                    <p>Urgency Level: placeholder</p>
+                    <div class="form-group">
+                        <label for="exampleTextarea">Description:</label>
+                        <textarea readonly class="form-control" id="desc" name="description" rows="5"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleTextarea">Update:</label>
+                        <textarea class="form-control" id="update_text" name="update" rows="2"></textarea>
+                        <button id="update_btn" type="button" class="btn btn-primary float-right mt-2" onclick="$.ajaxSetup({ 
+     beforeSend: function(xhr, settings) {
+         function getCookie(name) {
+             var cookieValue = null;
+             if (document.cookie && document.cookie != '') {
+                 var cookies = document.cookie.split(';');
+                 for (var i = 0; i < cookies.length; i++) {
+                     var cookie = jQuery.trim(cookies[i]);
+                     // Does this cookie string begin with the name we want?
+                     if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                         cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                         break;
+                     }
+                 }
+             }
+             return cookieValue;
+         }
+         if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+             // Only send the token to relative URLs i.e. locally.
+             xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken'));
+         }
+     } 
+});$.ajax({
+        url: '/new_update/',
+        type: 'POST',
+        data: { ticket_id : 4, description : $('#update_text').text() },
         success: function(result){alert('Success' + JSON.stringify(result));},
         error: function(status){alert('Error: ' + JSON.stringify(status));}
-    });">Update Ticket</button>
-                    <button type="button" class="btn btn-primary" disabled>Close Ticket</button>
+    });">Add Update</button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" disabled>Close Ticket</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 </div>
             </div>
@@ -207,8 +251,8 @@ tbody.onclick = function (e) {
         ticketid = cells[0].innerHTML;
     }
     $('#desc').html("Ticket id: " + ticketid);
-    //get the ticket info via an AJAX call here
     
+    //get the ticket info via an AJAX call
     $.ajax({
         url: '/get_ticket_details/',
         data : {ticket_id : ticketid},
@@ -220,28 +264,27 @@ tbody.onclick = function (e) {
         error: function(status){alert('Error: ' + JSON.stringify(status));}
     });
     
+    //show the ticket info in the modal
     $('#ticketDetailModal').modal('show'); 
     
 };
 </script>
-<script>
-    $('#ticketForm').on('submit', function(event) {
-        console.log("form submitted!")
-    });
-</script>
     
     
-    
-<!--jquery-->
-<script>src="https://code.jquery.com/jquery-3.3.1.min.js"
+<!-- jquery minimized 3.3.1-->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
 
-<!--popper-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<!--popper (for dataTables)-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" 
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" 
+        crossorigin="anonymous"></script>
 
 <!--bootstrap.min.js-->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" 
+        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" 
+        crossorigin="anonymous"></script>
 
 <!--used for table size when window is resized-->
 <script type="text/javascript" >    

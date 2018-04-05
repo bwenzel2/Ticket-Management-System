@@ -2,7 +2,14 @@
 
 #ticketTable  {
     table-layout: fixed;
-    width: 100%;
+}
+
+textarea {
+   resize: none;
+}
+
+#desc {
+    background-color: white;
 }
 
 .ellipses {

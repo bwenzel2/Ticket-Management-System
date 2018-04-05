@@ -1,10 +1,9 @@
 from django.shortcuts import render
 from django.contrib.auth.views import login
 from django.shortcuts import redirect
-from .models import Ticket
-from TicketMaster.forms import TicketForm
+from .models import Ticket, Update
 from django.core import serializers
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 
 
 # Create your views here.
@@ -17,7 +16,8 @@ def home(request):
 		return render(request, 'home.html', {'tickets': tickets})
 	else:
 		return redirect('login')
-		
+
+#creates a new ticket		
 def new_ticket(request):
 	if request.method == 'POST':
 		desc = request.POST.get('description')
@@ -27,25 +27,44 @@ def new_ticket(request):
 			# add a new ticket
 			t = Ticket.objects.create(description=desc, creator=request.user)
 	return redirect('home')
-	
+
+
+#input: a ticket id
+#output: a JSON Object representing all the details of the ticket with the specified id
 def get_ticket_details(request):
 	ticket_id = request.GET.get('ticket_id')
 	
+	#find the ticket with that id, return it as a response
 	ticket = Ticket.objects.filter(id=ticket_id)
 	response = serializers.serialize("json", ticket)
 	return HttpResponse(response, content_type='application/json')
+
 		
-	
+#creates a new update for a specified ticket id	
 def new_update(request):
 	if request.method == 'POST':
+		#get the POST paramenters
 		desc = request.POST.get('description')
 		ticket_id = request.POST.get('ticket_id')
-		update = Update.objects.create(description=desc, ticket = Ticket.objects.get(pk=ticket_id))		
-	return redirect('home')
+		
+		#get the ticket with the id specified in the POST request
+		t = Ticket.objects.get(id=ticket_id)
+		
+		#create a new ticket and store its id
+		newId = Update.objects.create(description=desc, ticket=t).id	
+		
+		#use the id of the new ticket to create a queryset to send back to the client
+		update = Update.objects.filter(id=newId)
+		response = serializers.serialize("json", update)
+		return HttpResponse(response, content_type='application/json')
+	else:
+		raise Http404()
 	
+#get all updates associcated with a particular ticket id, return as a JSON Object
 def get_updates(request):
-	if request.method == 'GET':
-		updates = Ticket.objects.all()
+	if request.method == 'GET':		
+		ticket_id = request.GET.get('ticket_id')
+		updates = Ticket.objects.filter(id=ticket_id)
 		
 		#https://stackoverflow.com/questions/26373992/use-jsonresponse-to-serialize-a-queryset-in-django-1-7
 		response = serializers.serialize("json", updates)
