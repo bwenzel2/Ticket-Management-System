@@ -1,28 +1,26 @@
 {% load static %}
+
 <html>
-    <head>
+
+<head>
     <meta charset="utf-8">
-    <title>Home</title>
-        
-        
+    <title>EasyTicket</title>
+    <!-- css files -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/home.css' %}" type="text/css">
 
+    <!-- fontawesome javascript -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 
-        
+
     <!-- dataTables -->
     <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
-    <script type="text/javascript" charset="utf-8">
-        //$(document).ready(function() {
-        //    $('#ticketTable').DataTable();
-        //});
-    </script>
 </head>
 
 <body>
+    <!-- navbar -->
     <nav class="navbar navbar-toggleable navbar-inverse bg-inverse navbar-fixed-top">
         <a href="/" class="navbar-brand">Easy Ticket</a>
         <ul class="navbar-nav ml-auto">
@@ -39,8 +37,8 @@
     </nav>
 
     <div class="container-fluid">
+
         <!-- new ticket button-->
-       
         <button type="button" class="btn btn-outline-success mt-3 btn-lg" data-toggle="modal" data-target="#newTicketModel">New Ticket</button>
 
         <!-- ticket card view -->
@@ -85,14 +83,14 @@
                     </tbody>
                 </table>
             </div>
-
-
         </div>
         <!-- ticket card view -->
     </div>
     <!-- container-fluid -->
 
+
     <!--new ticket modal window-->
+
     <div id="newTicketModel" class="modal fade bd-example-modal-lg" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -132,7 +130,7 @@
                                 </div>
                             </div>
                         </fieldset>
-                        <br> 
+                        <br>
                         <div class="form-group">
                             <select class="custom-select" required>
                                 <option value="">Urgency level</option>
@@ -140,7 +138,7 @@
                                 <option value="2" href="#">Medium</option>
                                 <option value="3" href="#">Low</option>
                             </select>
-                            </div>
+                        </div>
                         <br>
                         <br>
                         <div class="form-group">
@@ -157,7 +155,9 @@
         </div>
     </div>
 
+
     <!--ticket detail view modal window-->
+
     <div id="ticketDetailModal" class="modal fade bd-example-modal-lg" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -189,35 +189,7 @@
                     <div class="form-group">
                         <label for="exampleTextarea">Update:</label>
                         <textarea class="form-control" id="update_text" name="update" rows="2"></textarea>
-                        <button id="update_btn" type="button" class="btn btn-primary float-right mt-2" onclick="$.ajaxSetup({ 
-     beforeSend: function(xhr, settings) {
-         function getCookie(name) {
-             var cookieValue = null;
-             if (document.cookie && document.cookie != '') {
-                 var cookies = document.cookie.split(';');
-                 for (var i = 0; i < cookies.length; i++) {
-                     var cookie = jQuery.trim(cookies[i]);
-                     // Does this cookie string begin with the name we want?
-                     if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                         cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                         break;
-                     }
-                 }
-             }
-             return cookieValue;
-         }
-         if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
-             // Only send the token to relative URLs i.e. locally.
-             xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken'));
-         }
-     } 
-});$.ajax({
-        url: '/new_update/',
-        type: 'POST',
-        data: { ticket_id : 4, description : $('#update_text').text() },
-        success: function(result){alert('Success' + JSON.stringify(result));},
-        error: function(status){alert('Error: ' + JSON.stringify(status));}
-    });">Add Update</button>
+                        <button id="update_btn" type="button" class="btn btn-primary float-right mt-2" onclick="addUpdate()">Add Update</button>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -230,73 +202,30 @@
 </body>
 
 
-<!-- scripts -->
-    
-<!-- for update ticket button -->
+<!---------- S C R I P T S ------------>
 
-    
-<script>
-var table = document.getElementsByTagName("table")[0];
-var tbody = table.getElementsByTagName("tbody")[0];
-tbody.onclick = function (e) {
-    e = e || window.event;
-    var data = [];
-    var target = e.srcElement || e.target;
-    while (target && target.nodeName !== "TR") {
-        target = target.parentNode;
-    }
-    var ticketid;
-    if (target) {
-        var cells = target.getElementsByTagName("td");
-        ticketid = cells[0].innerHTML;
-    }
-    $('#desc').html("Ticket id: " + ticketid);
-    
-    //get the ticket info via an AJAX call
-    $.ajax({
-        url: '/get_ticket_details/',
-        data : {ticket_id : ticketid},
-        success: function(result) {
-            //alert('Success' + JSON.stringify(result));
-            var description = result[0].fields.description;
-            $('#desc').html("Ticket description: " + description);                     
-        },
-        error: function(status){alert('Error: ' + JSON.stringify(status));}
-    });
-    
-    //show the ticket info in the modal
-    $('#ticketDetailModal').modal('show'); 
-    
-};
-</script>
-    
-    
 <!-- jquery minimized 3.3.1-->
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
 <!--popper (for dataTables)-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" 
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" 
-        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 
 <!--bootstrap.min.js-->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" 
-        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" 
-        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
-<!--used for table size when window is resized-->
-<script type="text/javascript" >    
-window.onresize = function() {
-    if (window.innerWidth > 1000) {
-        document.getElementById("ticketTable").style.width = "100%";  
+<script type="text/javascript" src="javascript.js">
+    //used for table size when window is resized
+    window.onresize = function() {
+        if (window.innerWidth > 1000) {
+            document.getElementById("ticketTable").style.width = "100%";
+        } else {
+            document.getElementById("ticketTable").style.width = "950px";
+        }
     }
-    else {
-        document.getElementById("ticketTable").style.width = "950px";
-    }
-}
-</script>  
+
+</script>
+
+<!--local javascript utils file-->
+<script type="text/javascript" src={% static 'js/utils.js' %} charset="utf-8"></script>
+
 </html>
-
-
