@@ -13,6 +13,7 @@ tbody.onclick = function (e) {
         ticketid = cells[0].innerHTML;
     }
     $('#desc').html("Ticket id: " + ticketid);
+    $('#ticketDetailTitle').html("Ticket #" + ticketid);
 
     //get the ticket info via an AJAX call
     $.ajax({
@@ -63,12 +64,13 @@ function addUpdate() {
     });
 
     //send the AJAX POST request
+    var ticketid = $('#ticketDetailTitle').text().split('#')[1];
     $.ajax({
         url: '/new_update/',
         type: 'POST',
         data: {
             //TODO: GET THE RIGHT TICKET ID
-            ticket_id: 4,
+            ticket_id: ticketid,
             description: document.getElementById('update_text').value
         },
         success: function (result) {
