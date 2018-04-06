@@ -69,7 +69,7 @@ function addUpdate() {
         data: {
             //TODO: GET THE RIGHT TICKET ID
             ticket_id: 4,
-            description: $('#update_text').text()
+            description: document.getElementById('update_text').value
         },
         success: function (result) {
             alert('Success' + JSON.stringify(result));
