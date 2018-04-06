@@ -60,7 +60,7 @@
                 </ul>
             </div>
             <div class="card-body mx-2" style="overflow-x: scroll">
-                <table id="ticketTable" class="table table- mt-2">
+                <table id="ticketTable" class="table table-hover mt-2">
                     <thead class="thead-inverse">
                         <tr>
                             <th style="width: 90px; max-width: 90px;">Ticket #</th>
@@ -105,7 +105,7 @@
                     <div class="modal-body">
                         <br>
                         <div class="form-group row">
-                            <label for="example-text-input" class="col-2 col-form-label">Location</label>
+                            <label for="example-text-input" class="col-2 col-form-label" required>Location</label>
                             <div class="col-10">
                                 <input class="form-control" type="text" placeholder="Building Name, Room Number" id="example-text-input">
                             </div>
@@ -132,7 +132,7 @@
                         </fieldset>
                         <br>
                         <div class="form-group">
-                            <select class="custom-select" required>
+                            <select name="urgency" class="custom-select" required>
                                 <option value="">Urgency level</option>
                                 <option value="1" href="#">High</option>
                                 <option value="2" href="#">Medium</option>
@@ -143,7 +143,7 @@
                         <br>
                         <div class="form-group">
                             <label for="exampleTextarea">Description:</label>
-                            <textarea class="form-control" id="description" name="description" rows="5"></textarea>
+                            <textarea class="form-control" id="description" name="description" rows="5" required></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -177,11 +177,11 @@
                     <div class="form-group row">
                         <label for="example-text-input" class="col-2 col-form-label">Requestor</label>
                         <div class="col-10">
-                            <input readonly class="form-control" type="text" value="The Placeholder Requestor" id="example-text-input">
+                            <input readonly class="form-control" type="text" value="The Placeholder Requestor" id="requestor_detail">
                         </div>
                     </div>
                     <p>Status: placeholder</p>
-                    <p>Urgency Level: placeholder</p>
+                    <p>Urgency Level: <span id="urgency_detail"></span></p>
                     <div class="form-group">
                         <label for="exampleTextarea">Description:</label>
                         <textarea readonly class="form-control" id="desc" name="description" rows="5"></textarea>

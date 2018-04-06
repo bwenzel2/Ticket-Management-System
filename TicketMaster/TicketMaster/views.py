@@ -21,11 +21,12 @@ def home(request):
 def new_ticket(request):
 	if request.method == 'POST':
 		desc = request.POST.get('description')
+		urgency_level = request.POST.get('urgency')
 		# only add the new ticket if the description is not empty
 		# TO-DO: add validation to prevent this from happening!
 		if desc != "":
 			# add a new ticket
-			t = Ticket.objects.create(description=desc, creator=request.user)
+			t = Ticket.objects.create(description=desc, creator=request.user, urgency=urgency_level)
 	return redirect('home')
 
 
@@ -60,11 +61,12 @@ def new_update(request):
 	else:
 		raise Http404()
 	
-#get all updates associcated with a particular ticket id, return as a JSON Object
+#get all updates associcated with a particular ticket id, sorted most recent to least recent, return as a JSON Object
 def get_updates(request):
 	if request.method == 'GET':		
 		ticket_id = request.GET.get('ticket_id')
-		updates = Ticket.objects.filter(id=ticket_id)
+		#https://stackoverflow.com/questions/761352/django-queryset-order
+		updates = Update.objects.filter(ticket=ticket_id).order_by('-creation_date')
 		
 		#https://stackoverflow.com/questions/26373992/use-jsonresponse-to-serialize-a-queryset-in-django-1-7
 		response = serializers.serialize("json", updates)

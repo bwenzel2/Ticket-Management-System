@@ -24,16 +24,37 @@ tbody.onclick = function (e) {
         success: function (result) {
             //alert('Success' + JSON.stringify(result));
             var description = result[0].fields.description;
-            $('#desc').html("Ticket description: " + description);
+            $('#desc').html(description);
+
+            var urgency_int = result[0].fields.urgency;
+            var urgency_string;
+            if (urgency_int == 1) {
+                urgency_string = "High";
+            } else if (urgency_int == 2) {
+                urgency_string = "Medium";
+            } else if (urgency_int == 3) {
+                urgency_string = "Low";
+            }
+
+            $('#urgency_detail').html(urgency_string);
         },
         error: function (status) {
             alert('Error: ' + JSON.stringify(status));
         }
     });
 
+    //get all updates associated with the ticket via an AJAX call
+    $.ajax({
+        url: '/get_updates/',
+        data: {
+            ticket_id: ticketid
+        },
+        success: function (result) {
+            alert('Success' + JSON.stringify(result));
+        }
+    });
     //show the ticket info in the modal
     $('#ticketDetailModal').modal('show');
-
 };
 
 
@@ -80,4 +101,7 @@ function addUpdate() {
             alert('Error: ' + JSON.stringify(status));
         }
     });
+
+    //reset update text input field value
+    document.getElementById('update_text').value = "";
 }
