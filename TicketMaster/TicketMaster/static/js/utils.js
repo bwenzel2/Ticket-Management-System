@@ -73,9 +73,9 @@ function addUpdate() {
             ticket_id: ticketid,
             description: document.getElementById('update_text').value
         },
-        success: function (result) {
+        /*success: function (result) {
             alert('Success' + JSON.stringify(result));
-        },
+        },*/
         error: function (status) {
             alert('Error: ' + JSON.stringify(status));
         }
