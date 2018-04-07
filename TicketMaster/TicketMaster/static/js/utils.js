@@ -22,9 +22,9 @@ tbody.onclick = function (e) {
             ticket_id: ticketid
         },
         success: function (result) {
-            //alert('Success' + JSON.stringify(result));
+            //alert('Successful' + JSON.stringify(result));
             var description = result[0].fields.description;
-            $('#desc').html(description);
+            $('#detail_description').text(description);
 
             var urgency_int = result[0].fields.urgency;
             var urgency_string;
@@ -50,7 +50,11 @@ tbody.onclick = function (e) {
             ticket_id: ticketid
         },
         success: function (result) {
-            alert('Success' + JSON.stringify(result));
+            $('#detail_activity_log').empty();
+            result.forEach(function (arrayItem) {
+                $('#detail_activity_log').append('<li class="list-group-item">' + "UPDATE: " + arrayItem.fields.creation_date + "<br>" + arrayItem.fields.description + '</li>');
+            });
+            //alert('Success' + JSON.stringify(result));
         }
     });
     //show the ticket info in the modal
@@ -94,9 +98,10 @@ function addUpdate() {
             ticket_id: ticketid,
             description: document.getElementById('update_text').value
         },
-        /*success: function (result) {
-            alert('Success' + JSON.stringify(result));
-        },*/
+        success: function (result) {
+            // alert('Success' + JSON.stringify(result));
+            $('#detail_activity_log').prepend('<li class="list-group-item">' + "UPDATE: " + result[0].fields.creation_date + "<br>" + result[0].fields.description + '</li>');
+        },
         error: function (status) {
             alert('Error: ' + JSON.stringify(status));
         }
