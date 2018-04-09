@@ -82,4 +82,15 @@ def get_updates(request):
 	else:
 		return redirect('login')
 		
-
+#used to assign tickets to the currently-logged-in user
+@login_required
+def assign_ticket(request):
+	ticket_id = request.POST.get('ticket_id')
+	#get the ticket with the id specified in the POST request
+	ticket = Ticket.objects.get(id=ticket_id)
+	ticket.assigned_user = request.user
+	ticket.save()
+	
+	tickets = Ticket.objects.filter(id=ticket_id)
+	response = serializers.serialize("json", tickets, use_natural_foreign_keys=True)
+	return HttpResponse(response, content_type='application/json')

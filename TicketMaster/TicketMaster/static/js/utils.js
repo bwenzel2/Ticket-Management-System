@@ -108,7 +108,6 @@ function addUpdate() {
         url: '/new_update/',
         type: 'POST',
         data: {
-            //TODO: GET THE RIGHT TICKET ID
             ticket_id: ticketid,
             description: document.getElementById('update_text').value
         },
@@ -124,4 +123,50 @@ function addUpdate() {
 
     //reset update text input field value
     document.getElementById('update_text').value = "";
+}
+
+function assignTicket() {
+    //Django CSRF setup for the POST request
+    $.ajaxSetup({
+        beforeSend: function (xhr, settings) {
+            function getCookie(name) {
+                var cookieValue = null;
+                if (document.cookie && document.cookie != '') {
+                    var cookies = document.cookie.split(';');
+                    for (var i = 0; i < cookies.length; i++) {
+                        var cookie = jQuery.trim(cookies[i]);
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+            if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+                // Only send the token to relative URLs i.e. locally.
+                xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken'));
+            }
+        }
+    });
+
+    //send the AJAX POST request
+    var ticketid = $('#ticketDetailTitle').text().split('#')[1];
+    $.ajax({
+        url: '/assign_ticket/',
+        type: 'POST',
+        data: {
+            ticket_id: ticketid
+        },
+        success: function (result) {
+            alert('Success' + JSON.stringify(result));
+        },
+        error: function (status) {
+            alert('Error: ' + JSON.stringify(status));
+        }
+    });
+
+    //reset update text input field value
+    //document.getElementById('update_text').value = "";
 }
