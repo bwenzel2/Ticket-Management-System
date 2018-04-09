@@ -180,8 +180,21 @@
                             <input readonly class="form-control" type="text" value="The Placeholder Requestor" id="requestor_detail">
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label for="recipient_detail" class="col-2 col-form-label"><b>Recipient:</b></label>
+                        <div class="col-10">
+                            <input readonly class="form-control" type="text" value="The Placeholder Recipient" id="recipient_detail">
+                        </div>
+                    </div>
                     <p><b>Status:</b> placeholder</p>
-                    <p><b>Urgency Level:</b><span id="urgency_detail"></span></p>
+                    <div class="form-group">
+                        <select name="urgency" class="custom-select" required>
+                            <option value="">Urgency level</option>
+                            <option value="1" href="#">High</option>
+                            <option value="2" href="#">Medium</option>
+                            <option value="3" href="#">Low</option>
+                        </select>
+                    </div>
                     <div class="form-group">
                         <label for="detail_description"><b>Description:</b></label>
                         <!--<textarea readonly class="form-control" id="desc" name="description" rows="5"></textarea>-->
@@ -198,6 +211,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary">Accept Ticket</button>
                     <button type="button" class="btn btn-danger" disabled>Close Ticket</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 </div>
