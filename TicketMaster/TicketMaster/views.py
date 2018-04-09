@@ -23,6 +23,7 @@ def new_ticket(request):
 		desc = request.POST.get('description')
 		urgency_level = request.POST.get('urgency')
 		requestor = request.POST.get('requestor')
+		recipient = request.POST.get('recipient')
 		location = request.POST.get('location')
 		# only add the new ticket if the description is not empty
 		# TO-DO: add validation to prevent this from happening!
