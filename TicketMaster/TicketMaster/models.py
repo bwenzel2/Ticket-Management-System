@@ -20,6 +20,7 @@ class Ticket(models.Model):
 
 	location = models.CharField(max_length=200, default='')
 	creator = models.ForeignKey('auth.User', on_delete=models.PROTECT, default=1)
+	assigned_user = models.ForeignKey('auth.User', on_delete=models.PROTECT, null=True, related_name='assigned_ticket')
 	creation_date = models.DateTimeField(default=timezone.now)
 	description = models.TextField(default="")
 	status = models.IntegerField(choices=STATUS_CHOICES, default=0)

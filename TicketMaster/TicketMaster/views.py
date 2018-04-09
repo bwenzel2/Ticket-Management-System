@@ -5,19 +5,20 @@ from .models import Ticket, Update
 from django.core import serializers
 from django.http import HttpResponse, Http404
 
+from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
 def custom_login(request):
 	return render(request, 'home.html', {})
 
+@login_required
 def home(request):
 	tickets = Ticket.objects.filter()
-	if request.user.is_authenticated:
-		return render(request, 'home.html', {'tickets': tickets})
-	else:
-		return redirect('login')
+	return render(request, 'home.html', {'tickets': tickets})
 
-#creates a new ticket		
+#creates a new ticket	
+@login_required	
 def new_ticket(request):
 	if request.method == 'POST':
 		desc = request.POST.get('description')
@@ -35,6 +36,7 @@ def new_ticket(request):
 
 #input: a ticket id
 #output: a JSON Object representing all the details of the ticket with the specified id
+@login_required
 def get_ticket_details(request):
 	ticket_id = request.GET.get('ticket_id')
 	
@@ -45,6 +47,7 @@ def get_ticket_details(request):
 
 		
 #creates a new update for a specified ticket id	
+@login_required
 def new_update(request):
 	if request.method == 'POST':
 		#get the POST paramenters
@@ -59,12 +62,13 @@ def new_update(request):
 		
 		#use the id of the new ticket to create a queryset to send back to the client
 		update = Update.objects.filter(id=newId)
-		response = serializers.serialize("json", update)
+		response = serializers.serialize("json", update, use_natural_foreign_keys=True)
 		return HttpResponse(response, content_type='application/json')
 	else:
 		raise Http404()
 	
 #get all updates associcated with a particular ticket id, sorted most recent to least recent, return as a JSON Object
+@login_required
 def get_updates(request):
 	if request.method == 'GET':		
 		ticket_id = request.GET.get('ticket_id')

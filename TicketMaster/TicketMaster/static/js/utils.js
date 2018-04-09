@@ -115,7 +115,7 @@ function addUpdate() {
         success: function (result) {
             // alert('Success' + JSON.stringify(result));
             // add the new alert at the top of the activity log
-            $('#detail_activity_log').prepend('<li class="list-group-item">' + "UPDATE: " + result[0].fields.creation_date + "<br>" + result[0].fields.description + '</li>');
+            $('#detail_activity_log').prepend('<li class="list-group-item">' + result[0].fields.creator + " on " + result[0].fields.creation_date + '<br><div class="small">' + result[0].fields.description + '</div></li>');
         },
         error: function (status) {
             alert('Error: ' + JSON.stringify(status));
