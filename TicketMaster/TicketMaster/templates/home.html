@@ -186,14 +186,24 @@
                             <input readonly class="form-control" type="text" value="The Placeholder Recipient" id="recipient_detail">
                         </div>
                     </div>
-                    <p><b>Status:</b> placeholder</p>
-                    <div class="form-group">
-                        <select name="urgency" class="custom-select" required>
-                            <option value="">Urgency level</option>
-                            <option value="1" href="#">High</option>
-                            <option value="2" href="#">Medium</option>
-                            <option value="3" href="#">Low</option>
-                        </select>
+                    <fieldset disabled>
+                        <div class="form-group row">
+                            <label for="disabledTextInput" class="col-2 col-form-label"><b>Status:</b></label>
+                            <div class="col-10">
+                                <input class="form-control" type="text" placeholder="Open" id="disabledInput">
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label"><b>Urgency:</b></label>
+                        <div class="form-group col-10">
+                            <select name="urgency" class="custom-select" required>
+<option value="">Urgency level</option>
+<option value="1" href="#">High</option>
+<option value="2" href="#">Medium</option>
+<option value="3" href="#">Low</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="detail_description"><b>Description:</b></label>
@@ -201,7 +211,7 @@
                         <div id="detail_description" class="px-1 py-1" name="detail_description" style="min-height: 0px; max-height: 200px; border:1px solid lightgrey; border-radius: 5px; width: 100%; overflow-y: auto"></div>
                     </div>
                     <div class="form-group">
-                        <label for="detail_activity_log"><b>Activity Log:</b></label>
+                        <label for="detail_activity_log"><b>Update Log:</b></label>
                         <div id="detail_activity_log" name="detail_activity_log" style="height: 200px; border: 1px solid lightgrey; border-radius: 5px; width: 100%; overflow-y: auto"></div>
                     </div>
                     <div class="form-group">
@@ -212,7 +222,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary">Accept Ticket</button>
-                    <button type="button" class="btn btn-danger" disabled>Close Ticket</button>
+                    <button type="button" class="btn btn-danger">Close Ticket</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 </div>
             </div>

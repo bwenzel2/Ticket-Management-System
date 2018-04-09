@@ -31,12 +31,14 @@
                         <div class="form-group">
                             <input type="password" id="password" class="form-control login-input mx-auto" name="password" placeholder="Password" required="" />
                         </div>
+
                         {% if form.errors %}
                         <div class="alert alert-danger alert-dismissible fade in">
                             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                             <strong>The Username or Password you entered does not match our records!</strong>
                         </div>
                         {% endif %}
+
                         <div class="form-group">
                             <button type="submit" class="btn btn-outline-success btn-lg">Log In</button>
                         </div>
