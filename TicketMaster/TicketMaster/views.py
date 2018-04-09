@@ -22,11 +22,13 @@ def new_ticket(request):
 	if request.method == 'POST':
 		desc = request.POST.get('description')
 		urgency_level = request.POST.get('urgency')
+		requestor = request.POST.get('requestor')
+		location = request.POST.get('location')
 		# only add the new ticket if the description is not empty
 		# TO-DO: add validation to prevent this from happening!
 		if desc != "":
 			# add a new ticket
-			t = Ticket.objects.create(description=desc, creator=request.user, urgency=urgency_level)
+			t = Ticket.objects.create(description=desc, creator=request.user, urgency=urgency_level, requestor=requestor, recipient=recipient, location=location)
 	return redirect('home')
 
 

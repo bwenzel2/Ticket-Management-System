@@ -23,6 +23,20 @@ tbody.onclick = function (e) {
         },
         success: function (result) {
             //alert('Successful' + JSON.stringify(result));
+
+            //location
+            var location = result[0].fields.location;
+            $('#location_detail').val(location);
+
+            //requestor
+            var requestor = result[0].fields.requestor;
+            $('#requestor_detail').val(requestor);
+
+            //recipient
+            var recipient = result[0].fields.recipient;
+            $('#recipient_detail').val(recipient);
+
+            //description
             var description = result[0].fields.description;
             $('#detail_description').text(description);
 
@@ -100,6 +114,7 @@ function addUpdate() {
         },
         success: function (result) {
             // alert('Success' + JSON.stringify(result));
+            // add the new alert at the top of the activity log
             $('#detail_activity_log').prepend('<li class="list-group-item">' + "UPDATE: " + result[0].fields.creation_date + "<br>" + result[0].fields.description + '</li>');
         },
         error: function (status) {

@@ -107,19 +107,19 @@
                         <div class="form-group row">
                             <label for="example-text-input" class="col-2 col-form-label" required>Location</label>
                             <div class="col-10">
-                                <input class="form-control" type="text" placeholder="Building Name, Room Number" id="example-text-input">
+                                <input class="form-control" type="text" name="location" placeholder="Building Name, Room Number" id="example-text-input">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="example-text-input" class="col-2 col-form-label">Requestor</label>
                             <div class="col-10">
-                                <input class="form-control" type="text" placeholder="The Benefactor" id="example-text-input">
+                                <input class="form-control" type="text" name="requestor" placeholder="The Benefactor" id="example-text-input">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="example-text-input" class="col-2 col-form-label">Recipient</label>
                             <div class="col-10">
-                                <input class="form-control" type="text" placeholder="The Beneficiary" id="example-text-input">
+                                <input class="form-control" type="text" name="recipient" placeholder="The Beneficiary" id="example-text-input">
                             </div>
                         </div>
                         <fieldset disabled>
@@ -169,13 +169,13 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group row">
-                        <label for="example-text-input" class="col-2 col-form-label"><b>Location:</b></label>
+                        <label for="location_detail" class="col-2 col-form-label"><b>Location:</b></label>
                         <div class="col-10">
-                            <input readonly class="form-control" type="text" value="The Placeholder" id="example-text-input">
+                            <input readonly class="form-control" type="text" value="The Placeholder" id="location_detail">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="example-text-input" class="col-2 col-form-label"><b>Requestor:</b></label>
+                        <label for="requestor_detail" class="col-2 col-form-label"><b>Requestor:</b></label>
                         <div class="col-10">
                             <input readonly class="form-control" type="text" value="The Placeholder Requestor" id="requestor_detail">
                         </div>
@@ -189,7 +189,7 @@
                     </div>
                     <div class="form-group">
                         <label for="detail_activity_log"><b>Activity Log:</b></label>
-                        <div id="detail_activity_log" name="detail_activity_log" style="min-height: 200px; max-height: 200px; border: 1px solid lightgrey; border-radius: 5px; width: 100%; overflow-y: auto"></div>
+                        <div id="detail_activity_log" name="detail_activity_log" style="height: 200px; border: 1px solid lightgrey; border-radius: 5px; width: 100%; overflow-y: auto"></div>
                     </div>
                     <div class="form-group">
                         <label for="exampleTextarea"><b>Add New Update:</b></label>
