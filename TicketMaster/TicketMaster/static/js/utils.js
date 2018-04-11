@@ -114,7 +114,7 @@ function addUpdate() {
         success: function (result) {
             // alert('Success' + JSON.stringify(result));
             // add the new alert at the top of the activity log
-            $('#detail_activity_log').prepend('<li class="list-group-item">' + result[0].fields.creator + " on " + result[0].fields.creation_date + '<br><div class="small">' + result[0].fields.description + '</div></li>');
+            $('#detail_activity_log').prepend('<li class="list-group-item">' + result[0].fields.creator + " on " + result[0].fields.creation_date + '<br><div>' + result[0].fields.description + '</div></li>');
         },
         error: function (status) {
             alert('Error: ' + JSON.stringify(status));
@@ -160,13 +160,22 @@ function assignTicket() {
             ticket_id: ticketid
         },
         success: function (result) {
-            alert('Success' + JSON.stringify(result));
+            alert('Success' + result[0].fields.status);
+
+            //reset update text input field value
+            var status_int = result[0].fields.status;
+            var status_string;
+            if (status_int == "0") {
+                status_string = "Open";
+            } else if (status_int == "1") {
+                status_string = "In Progress";
+            } else if (status_int == "2") {
+                status_string = "Closed";
+            }
+            $('#status_detail').val(status_string);
         },
         error: function (status) {
             alert('Error: ' + JSON.stringify(status));
         }
     });
-
-    //reset update text input field value
-    //document.getElementById('update_text').value = "";
 }

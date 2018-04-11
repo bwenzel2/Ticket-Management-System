@@ -89,7 +89,8 @@ def assign_ticket(request):
 	#get the ticket with the id specified in the POST request
 	ticket = Ticket.objects.get(id=ticket_id)
 	ticket.assigned_user = request.user
-	ticket.save()
+	ticket.status = 1
+	ticket.save()	#any time you modify a database element in a view, you need to call save() to save the modifications to the database
 	
 	tickets = Ticket.objects.filter(id=ticket_id)
 	response = serializers.serialize("json", tickets, use_natural_foreign_keys=True)
