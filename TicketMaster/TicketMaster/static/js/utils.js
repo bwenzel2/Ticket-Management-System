@@ -188,9 +188,48 @@ function assignTicket() {
 
 
 function closeTicket() {
+    //Django CSRF setup for the POST request
+    $.ajaxSetup({
+        beforeSend: function (xhr, settings) {
+            function getCookie(name) {
+                var cookieValue = null;
+                if (document.cookie && document.cookie != '') {
+                    var cookies = document.cookie.split(';');
+                    for (var i = 0; i < cookies.length; i++) {
+                        var cookie = jQuery.trim(cookies[i]);
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+            if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+                // Only send the token to relative URLs i.e. locally.
+                xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken'));
+            }
+        }
+    });
+    var ticketid = $('#ticketDetailTitle').text().split('#')[1];
+    $.ajax({
+        url: '/close_ticket/',
+        type: 'POST',
+        data: {
+            ticket_id: ticketid,
+            solution: $('#solution_text').text()
+        },
+        success: function (result) {
+            alert('Success' + result[0].fields.status);
+        },
+        error: function (status) {
+            alert('Error: ' + JSON.stringify(status));
+        }
+    });
     $('#ticketDetailModal').hide();
 }
 
-function closeCloseTicketModal() {
+function cancelCloseTicketModal() {
     $('#ticketDetailModal').show();
 }

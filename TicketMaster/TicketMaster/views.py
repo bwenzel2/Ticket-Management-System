@@ -95,3 +95,18 @@ def assign_ticket(request):
 	tickets = Ticket.objects.filter(id=ticket_id)
 	response = serializers.serialize("json", tickets, use_natural_foreign_keys=True)
 	return HttpResponse(response, content_type='application/json')
+	
+@login_required
+def close_ticket(request):
+	ticket_id = request.POST.get('ticket_id')
+	solution_text = request.POST.get('ticket_id')
+	#get the ticket with the id specified in the POST request
+	ticket = Ticket.objects.get(id=ticket_id)
+	ticket.assigned_user = request.user
+	ticket.status = 2
+	ticket.solution = solution_text
+	ticket.save()	#any time you modify a database element in a view, you need to call save() to save the modifications to the database
+	
+	tickets = Ticket.objects.filter(id=ticket_id)
+	response = serializers.serialize("json", tickets, use_natural_foreign_keys=True)
+	return HttpResponse(response, content_type='application/json')
