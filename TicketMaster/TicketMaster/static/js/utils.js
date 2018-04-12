@@ -122,7 +122,7 @@ function addUpdate() {
     });
 
     //reset update text input field value
-    document.getElementById('update_text').value = "";
+    $('#update_text').val("");
 }
 
 function assignTicket() {
@@ -218,18 +218,23 @@ function closeTicket() {
         type: 'POST',
         data: {
             ticket_id: ticketid,
-            solution: $('#solution_text').text()
+            solution: $('#solution_text').val()
         },
         success: function (result) {
-            alert('Success' + result[0].fields.status);
+            alert('Success' + result[0].fields.status + ' ' + result[0].fields.solution);
         },
         error: function (status) {
             alert('Error: ' + JSON.stringify(status));
         }
     });
+    $('#solution_text').text("");
+    $('#closeTicketModal').hide();
+}
+
+function openCloseTicketModal() {
     $('#ticketDetailModal').hide();
 }
 
 function cancelCloseTicketModal() {
-    $('#ticketDetailModal').show();
+    $('#closeTicketModal').modal('hide');
 }

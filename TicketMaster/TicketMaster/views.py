@@ -99,7 +99,7 @@ def assign_ticket(request):
 @login_required
 def close_ticket(request):
 	ticket_id = request.POST.get('ticket_id')
-	solution_text = request.POST.get('ticket_id')
+	solution_text = request.POST.get('solution')
 	#get the ticket with the id specified in the POST request
 	ticket = Ticket.objects.get(id=ticket_id)
 	ticket.assigned_user = request.user

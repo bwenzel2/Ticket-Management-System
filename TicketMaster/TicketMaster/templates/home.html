@@ -222,7 +222,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" onclick="assignTicket()">Accept Ticket</button>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#closeTicketModal" onclick="closeTicket()">Close Ticket</button>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-dismiss="modal" data-target="#closeTicketModal" onclick="openCloseTicketModal()">Close Ticket</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 </div>
             </div>
@@ -231,21 +231,21 @@
 
 
 
-    <div id="closeTicketModal" class="hehe modal fade bd-example-modal-lg" data-backdrop="false" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div id="closeTicketModal" class="hehe modal fade bd-example-modal-lg" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class=" modal-header">
+                <div class="modal-header">
                     <h5 class="modal-title">Close Ticket</h5>
                 </div>
                 <form id="ticketForm " method="POST" class="post-form ">
                     {% csrf_token %}
                     <div class="form-group px-3 py-3">
                         <label for="exampleTextarea ">Solution:</label>
-                        <textarea class="form-control " id="description" name="description" rows="5"></textarea>
+                        <textarea class="form-control" id="solution_text" name="solution_text" rows="5"></textarea>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-danger" onclick="cancelCloseTicketModal()" data-dismiss="modal">Close Ticket</button>
-                        <button type="button" class="btn btn-secondary" onclick="cancelCloseTicketModal()" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="closeTicket()">Close Ticket</button>
+                        <button type="button" class="btn btn-secondary" onclick="cancelCloseTicketModal()">Cancel</button>
                     </div>
                 </form>
             </div>
