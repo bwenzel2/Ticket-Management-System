@@ -8,9 +8,12 @@
     <!-- css files -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/home.css' %}" type="text/css">
-
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
     <!-- fontawesome javascript -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+
+    
+    
 
 
     <!-- dataTables -->
@@ -60,7 +63,7 @@
                 </ul>
             </div>
             <div class="card-body mx-2" style="overflow-x: scroll">
-                <table id="ticketTable" class="table table-hover mt-2">
+                <table id="ticketTable" class="table table-hover mt-2 display">
                     <thead class="thead-inverse">
                         <tr>
                             <th style="width: 90px; max-width: 90px;">Ticket #</th>
@@ -105,21 +108,21 @@
                     <div class="modal-body">
                         <br>
                         <div class="form-group row">
-                            <label for="example-text-input" class="col-2 col-form-label" required>Location</label>
+                            <label for="example-text-input" class="col-2 col-form-label">Location</label>
                             <div class="col-10">
-                                <input class="form-control" type="text" name="location" placeholder="Building Name, Room Number" id="example-text-input">
+                                <input class="form-control" type="text" name="location" placeholder="Building Name, Room Number" id="example-text-input" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="example-text-input" class="col-2 col-form-label">Requestor</label>
                             <div class="col-10">
-                                <input class="form-control" type="text" name="requestor" placeholder="The Benefactor" id="example-text-input">
+                                <input class="form-control" type="text" name="requestor" placeholder="The Benefactor" maxlength="100">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="example-text-input" class="col-2 col-form-label">Recipient</label>
                             <div class="col-10">
-                                <input class="form-control" type="text" name="recipient" placeholder="The Beneficiary" id="example-text-input">
+                                <input class="form-control" type="text" name="recipient" placeholder="The Beneficiary" maxlength="100">
                             </div>
                         </div>
                         <fieldset disabled>
@@ -195,13 +198,24 @@
                         </div>
                     </fieldset>
                     <div class="form-group row">
+                        <label class="col-2 col-form-label"><b>Status:</b></label>
+                        <div class="form-group col-10">
+                            <select name="urgency" class="custom-select">
+                                <option value="">Urgency level</option>
+                                <option value="1" href="#">High</option>
+                                <option value="2" href="#">Medium</option>
+                                <option value="3" href="#">Low</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label class="col-2 col-form-label"><b>Urgency:</b></label>
                         <div class="form-group col-10">
                             <select name="urgency" class="custom-select" required>
-<option value="">Urgency level</option>
-<option value="1" href="#">High</option>
-<option value="2" href="#">Medium</option>
-<option value="3" href="#">Low</option>
+                                <option value="">Urgency level</option>
+                                <option value="1" href="#">High</option>
+                                <option value="2" href="#">Medium</option>
+                                <option value="3" href="#">Low</option>
                             </select>
                         </div>
                     </div>
@@ -253,7 +267,39 @@
     }
 
 </script>
+<script>
+$(document).ready(function() {
+    $('ticketTable').DataTable( {
+        columnDefs: [ {
+            targets
+            
+        }]
+    })
+}
 
+    
+    
+    
+    
+    
+    
+    
+    
+    $(document).ready(function() {
+    $('#example').DataTable( {
+        columnDefs: [ {
+            targets: [ 0 ],
+            orderData: [ 0, 1 ]
+        }, {
+            targets: [ 1 ],
+            orderData: [ 1, 0 ]
+        }, {
+            targets: [ 4 ],
+            orderData: [ 4, 0 ]
+        } ]
+    } );
+} );
+</script>
 <!--local javascript utils file-->
 <script type="text/javascript" src={% static 'js/utils.js' %} charset="utf-8"></script>
 
