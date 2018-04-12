@@ -42,7 +42,7 @@
     <div class="container-fluid">
 
         <!-- new ticket button-->
-        <button type="button" class="btn btn-outline-success mt-3 btn-lg" data-toggle="modal" data-target="#newTicketModel">New Ticket</button>
+        <button type="button" class="btn btn-outline-success mt-3 btn-lg" data-toggle="modal" data-target="#newTicketModal">New Ticket</button>
 
         <!-- ticket card view -->
         <div class="card mt-4">
@@ -76,7 +76,7 @@
                     <tbody style="font-size: 12">
                         {% for ticket in tickets %}
                         <tr class="clickable-row">
-                            <td>{{ ticket.id }}</td>
+                            <td class="ticket_id">{{ ticket.id }}</td>
                             <td>{{ ticket.get_status_display }}</td>
                             <td class="ellipses">{{ ticket.description }}</td>
                             <td>{{ ticket.creator }}</td>
@@ -94,7 +94,7 @@
 
     <!--new ticket modal window-->
 
-    <div id="newTicketModel" class="modal fade bd-example-modal-lg" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div id="newTicketModal" class="modal fade bd-example-modal-lg" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -191,9 +191,9 @@
                     </div>
                     <fieldset disabled>
                         <div class="form-group row">
-                            <label for="disabledTextInput" class="col-2 col-form-label"><b>Status:</b></label>
+                            <label for="status_detail" class="col-2 col-form-label"><b>Status:</b></label>
                             <div class="col-10">
-                                <input class="form-control" type="text" placeholder="Open" id="disabledInput">
+                                <input class="form-control" type="text" placeholder="Open" id="status_detail">
                             </div>
                         </div>
                     </fieldset>
@@ -235,10 +235,33 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary">Accept Ticket</button>
-                    <button type="button" class="btn btn-danger">Close Ticket</button>
+                    <button type="button" class="btn btn-secondary" onclick="assignTicket()">Accept Ticket</button>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-dismiss="modal" data-target="#closeTicketModal" onclick="openCloseTicketModal()">Close Ticket</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="closeTicketModal" class="hehe modal fade bd-example-modal-lg" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Close Ticket</h5>
+                </div>
+                <form id="ticketForm " method="POST" class="post-form ">
+                    {% csrf_token %}
+                    <div class="form-group px-3 py-3">
+                        <label for="exampleTextarea ">Solution:</label>
+                        <textarea class="form-control" id="solution_text" name="solution_text" rows="5"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="closeTicket()">Close Ticket</button>
+                        <button type="button" class="btn btn-secondary" onclick="cancelCloseTicketModal()">Cancel</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -248,21 +271,21 @@
 <!---------- S C R I P T S ------------>
 
 <!-- jquery minimized 3.3.1-->
-<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js " integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin=" anonymous "></script>
 
 <!--popper (for dataTables)-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js " integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q " crossorigin="anonymous "></script>
 
 <!--bootstrap.min.js-->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js " integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn " crossorigin="anonymous "></script>
 
 <script>
     //used for table size when window is resized
     window.onresize = function() {
         if (window.innerWidth > 1000) {
-            document.getElementById("ticketTable").style.width = "100%";
+            document.getElementById("ticketTable ").style.width = "100% ";
         } else {
-            document.getElementById("ticketTable").style.width = "950px";
+            document.getElementById("ticketTable ").style.width = "950px ";
         }
     }
 
@@ -301,6 +324,6 @@ $(document).ready(function() {
 } );
 </script>
 <!--local javascript utils file-->
-<script type="text/javascript" src={% static 'js/utils.js' %} charset="utf-8"></script>
+<script type="text/javascript " src={% static 'js/utils.js' %} charset="utf-8 "></script>
 
 </html>

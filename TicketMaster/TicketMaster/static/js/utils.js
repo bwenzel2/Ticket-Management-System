@@ -108,14 +108,13 @@ function addUpdate() {
         url: '/new_update/',
         type: 'POST',
         data: {
-            //TODO: GET THE RIGHT TICKET ID
             ticket_id: ticketid,
             description: document.getElementById('update_text').value
         },
         success: function (result) {
             // alert('Success' + JSON.stringify(result));
             // add the new alert at the top of the activity log
-            $('#detail_activity_log').prepend('<li class="list-group-item">' + result[0].fields.creator + " on " + result[0].fields.creation_date + '<br><div class="small">' + result[0].fields.description + '</div></li>');
+            $('#detail_activity_log').prepend('<li class="list-group-item">' + result[0].fields.creator + " on " + result[0].fields.creation_date + '<br><div>' + result[0].fields.description + '</div></li>');
         },
         error: function (status) {
             alert('Error: ' + JSON.stringify(status));
@@ -123,5 +122,119 @@ function addUpdate() {
     });
 
     //reset update text input field value
-    document.getElementById('update_text').value = "";
+    $('#update_text').val("");
+}
+
+function assignTicket() {
+    //Django CSRF setup for the POST request
+    $.ajaxSetup({
+        beforeSend: function (xhr, settings) {
+            function getCookie(name) {
+                var cookieValue = null;
+                if (document.cookie && document.cookie != '') {
+                    var cookies = document.cookie.split(';');
+                    for (var i = 0; i < cookies.length; i++) {
+                        var cookie = jQuery.trim(cookies[i]);
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+            if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+                // Only send the token to relative URLs i.e. locally.
+                xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken'));
+            }
+        }
+    });
+
+    //send the AJAX POST request
+    var ticketid = $('#ticketDetailTitle').text().split('#')[1];
+    $.ajax({
+        url: '/assign_ticket/',
+        type: 'POST',
+        data: {
+            ticket_id: ticketid
+        },
+        success: function (result) {
+            //alert('Success' + result[0].fields.status);
+
+            //reset update text input field value
+            var status_int = result[0].fields.status;
+            var status_string;
+            if (status_int == "0") {
+                status_string = "Open";
+            } else if (status_int == "1") {
+                status_string = "In Progress";
+            } else if (status_int == "2") {
+                status_string = "Closed";
+            }
+            $('#status_detail').val(status_string);
+
+
+            var tableRow = $(".ticket_id").filter(function () {
+                return $(this).text() == ticketid;
+            }).closest("tr");
+            alert(JSON.stringify(tableRow));
+        },
+        error: function (status) {
+            alert('Error: ' + JSON.stringify(status));
+        }
+    });
+}
+
+
+function closeTicket() {
+    //Django CSRF setup for the POST request
+    $.ajaxSetup({
+        beforeSend: function (xhr, settings) {
+            function getCookie(name) {
+                var cookieValue = null;
+                if (document.cookie && document.cookie != '') {
+                    var cookies = document.cookie.split(';');
+                    for (var i = 0; i < cookies.length; i++) {
+                        var cookie = jQuery.trim(cookies[i]);
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+            if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+                // Only send the token to relative URLs i.e. locally.
+                xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken'));
+            }
+        }
+    });
+    var ticketid = $('#ticketDetailTitle').text().split('#')[1];
+    $.ajax({
+        url: '/close_ticket/',
+        type: 'POST',
+        data: {
+            ticket_id: ticketid,
+            solution: $('#solution_text').val()
+        },
+        success: function (result) {
+            alert('Success' + result[0].fields.status + ' ' + result[0].fields.solution);
+        },
+        error: function (status) {
+            alert('Error: ' + JSON.stringify(status));
+        }
+    });
+    $('#solution_text').text("");
+    $('#closeTicketModal').hide();
+}
+
+function openCloseTicketModal() {
+    $('#ticketDetailModal').hide();
+}
+
+function cancelCloseTicketModal() {
+    $('#closeTicketModal').modal('hide');
 }

@@ -27,6 +27,7 @@ class Ticket(models.Model):
 	requestor = models.CharField(max_length=200, default='')
 	recipient = models.CharField(max_length=200, default='')
 	urgency = models.CharField(max_length=6)
+	solution = models.TextField(default="")
 	
 	def create(self):
 		self.save()
