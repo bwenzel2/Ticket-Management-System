@@ -160,7 +160,7 @@ function assignTicket() {
             ticket_id: ticketid
         },
         success: function (result) {
-            alert('Success' + result[0].fields.status);
+            //alert('Success' + result[0].fields.status);
 
             //reset update text input field value
             var status_int = result[0].fields.status;
@@ -173,9 +173,24 @@ function assignTicket() {
                 status_string = "Closed";
             }
             $('#status_detail').val(status_string);
+
+
+            var tableRow = $(".ticket_id").filter(function () {
+                return $(this).text() == ticketid;
+            }).closest("tr");
+            alert(JSON.stringify(tableRow));
         },
         error: function (status) {
             alert('Error: ' + JSON.stringify(status));
         }
     });
+}
+
+
+function closeTicket() {
+    $('#ticketDetailModal').hide();
+}
+
+function closeCloseTicketModal() {
+    $('#ticketDetailModal').show();
 }
