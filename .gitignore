@@ -1,0 +1,6 @@
+# ignore cache changes
+__pycache__/
+# ignore migration changes
+migrations/
+# the database itself is not necessary to see changes to
+db.sqlite3
