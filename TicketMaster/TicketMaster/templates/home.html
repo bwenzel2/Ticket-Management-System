@@ -7,6 +7,8 @@
     <title>EasyTicket</title>
     <!-- css files -->
 
+    <link href="https://fonts.googleapis.com/css?family=Audiowide" rel="stylesheet">
+
     <link rel="stylesheet" href="{% static 'css/home.css' %}" type="text/css">
 
     <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css" type="text/css">-->
@@ -31,7 +33,7 @@
 </head>
 
 <body>
-
+    <!-- enables the datatable with the dataTables stylesheet-->
     <script>
         $(document).ready(function() {
             $('#ticketTable').DataTable();
@@ -40,7 +42,7 @@
     </script>
     <!-- navbar -->
     <nav class="navbar navbar-toggleable navbar-inverse bg-inverse navbar-fixed-top">
-        <a href="/" class="navbar-brand">Easy Ticket</a>
+        <a href="/" class="navbar-brand" style="font-family:Audiowide; font-size:25px">Easy Ticket</a>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item mt-2">
                 <i class="fas fa-user fa-lg" style="color:lightgray"></i>
@@ -57,7 +59,8 @@
     <div class="container-fluid">
 
         <!-- new ticket button-->
-        <button type="button" class="btn btn-outline-success mt-3 btn-lg" data-toggle="modal" data-target="#newTicketModal">New Ticket</button>
+        <button type="button" class="btn btn-primary btn-lg mt-3" data-toggle="modal" 
+                 id="newTicketBtn" data-target="#newTicketModal">New Ticket</button>
 
         <!-- ticket card view -->
         <div class="card mt-4 mb-4">
@@ -212,17 +215,6 @@
                             </div>
                         </div>
                     </fieldset>
-                    <div class="form-group row">
-                        <label class="col-2 col-form-label"><b>Status:</b></label>
-                        <div class="form-group col-10">
-                            <select name="urgency" class="custom-select">
-                                <option value="">Urgency level</option>
-                                <option value="1" href="#">High</option>
-                                <option value="2" href="#">Medium</option>
-                                <option value="3" href="#">Low</option>
-                            </select>
-                        </div>
-                    </div>
                     <div class="form-group row">
                         <label class="col-2 col-form-label"><b>Urgency:</b></label>
                         <div class="form-group col-10">

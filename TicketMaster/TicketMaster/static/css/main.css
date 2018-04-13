@@ -35,13 +35,10 @@ a {
     backdrop-filter: blur(3px);
 }
 
-#loginButton {
-    background-color: #32CD32;
-    margin: auto;
-    margin-top: 20px;
-    max-width: 240px;
+#logInBtn {
+    cursor:pointer;
+    background-color:12A5F4;
 }
-
 
 .alert-danger {
     background-color: #FF3333;
@@ -53,26 +50,26 @@ a {
 /* enable absolute positioning */
 
 .inner-addon {
-    position: relative;
+    position: relative;
 }
 
 
 /* style icon */
 
 .inner-addon .glyphicon {
-    position: absolute;
-    padding: 10px;
-    pointer-events: none;
-    color: lightgrey;
+    position: absolute;
+    padding: 10px;
+    pointer-events: none;
+    color: lightgrey;
 }
 
 
 /* align icon */
 
 .left-addon .glyphicon {
-    left: 0px;
+    left: 0px;
 }
 
 .right-addon .glyphicon {
-    right: 0px;
+    right: 0px;
 }

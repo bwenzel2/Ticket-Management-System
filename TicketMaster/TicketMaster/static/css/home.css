@@ -43,20 +43,20 @@ textarea {
   display: inline-block;
 }
 
-/*th.id, td.id {
-    
+#ticketbutton {
+    color: blue;
 }
 
-th.status, td.status {
-
+.btn-xl {
+    padding: 400px 30px;
+    font-size: 40px;
+    border-radius: 10px;
 }
 
-th.ctr, td.ctr {
-    
+#newTicketBtn {
+    min-width:200px;
+    min-height:50px;
+    cursor:pointer;
+    font-size:30px;
+    background-color:12A5F4;
 }
-
-th.ctr_date, td.ctr_date {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-} */
