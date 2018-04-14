@@ -7,7 +7,7 @@
     <title>EasyTicket</title>
     <!-- css files -->
 
-    <link href="https://fonts.googleapis.com/css?family=Audiowide" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Syncopate" rel="stylesheet">
 
     <link rel="stylesheet" href="{% static 'css/home.css' %}" type="text/css">
 
@@ -42,7 +42,7 @@
     </script>
     <!-- navbar -->
     <nav class="navbar navbar-toggleable navbar-inverse bg-inverse navbar-fixed-top">
-        <a href="/" class="navbar-brand" style="font-family:Audiowide; font-size:25px">Easy Ticket</a>
+        <a href="/" class="navbar-brand" style="font-family:Syncopate; font-size:25px">Easy Ticket</a>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item mt-2">
                 <i class="fas fa-user fa-lg" style="color:lightgray"></i>
@@ -191,30 +191,24 @@
                 <div class="modal-body">
                     <div class="form-group row">
                         <label for="location_detail" class="col-2 col-form-label"><b>Location:</b></label>
-                        <div class="col-10">
-                            <input readonly class="form-control" type="text" value="The Placeholder" id="location_detail">
+                        <div class="col-md-4">
+                            <input readonly class="form-control" type="text" value="The Placeholder" id="location_detail" name="location_detail">
+                        </div>
+                        <label for="status_detail" class="col-2 col-form-label"><b>Status:</b></label>
+                        <div class="col-md-4">
+                            <input readonly class="form-control" type="text" value="Open">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="requestor_detail" class="col-2 col-form-label"><b>Requestor:</b></label>
-                        <div class="col-10">
+                        <div class="col-md-4">
                             <input readonly class="form-control" type="text" value="The Placeholder Requestor" id="requestor_detail">
                         </div>
-                    </div>
-                    <div class="form-group row">
                         <label for="recipient_detail" class="col-2 col-form-label"><b>Recipient:</b></label>
-                        <div class="col-10">
+                        <div class="col-md-4">
                             <input readonly class="form-control" type="text" value="The Placeholder Recipient" id="recipient_detail">
                         </div>
                     </div>
-                    <fieldset disabled>
-                        <div class="form-group row">
-                            <label for="status_detail" class="col-2 col-form-label"><b>Status:</b></label>
-                            <div class="col-10">
-                                <input class="form-control" type="text" placeholder="Open" id="status_detail">
-                            </div>
-                        </div>
-                    </fieldset>
                     <div class="form-group row">
                         <label class="col-2 col-form-label"><b>Urgency:</b></label>
                         <div class="form-group col-10">
@@ -227,10 +221,13 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="detail_description"><b>Description:</b></label>
+                        <h3 for="detail_description">Description</h3>
+                        <hr style="width:75%; margin-left:0">
                         <!--<textarea readonly class="form-control" id="desc" name="description" rows="5"></textarea>-->
-                        <div id="detail_description" class="px-1 py-1" name="detail_description" style="min-height: 0px; max-height: 200px; border:1px solid lightgrey; border-radius: 5px; width: 100%; overflow-y: auto"></div>
+                        <div name="detail_description" id="detail_description"></div>
+                        <!--<div id="detail_description" class="px-1 py-1" name="detail_description" style="min-height: 0px; max-height: 200px; border:1px solid lightgrey; border-radius: 5px; width: 100%; overflow-y: auto"></div>-->
                     </div>
+                    <br>
                     <div class="form-group">
                         <label for="detail_activity_log"><b>Update Log:</b></label>
                         <div id="detail_activity_log" name="detail_activity_log" style="height: 200px; border: 1px solid lightgrey; border-radius: 5px; width: 100%; overflow-y: auto"></div>
