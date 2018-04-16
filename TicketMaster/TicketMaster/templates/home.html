@@ -47,8 +47,8 @@
             <li class="nav-item mt-2">
                 <i class="fas fa-user fa-lg" style="color:lightgray"></i>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:lightgray">{{ user.username }}</a>
+            <li class="dropdown">
+                <a role='button' class="btn btn-dark dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:lightgray">{{ user.username }}</a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown01">
                     <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
                 </div>
@@ -59,8 +59,7 @@
     <div class="container-fluid">
 
         <!-- new ticket button-->
-        <button type="button" class="btn btn-primary btn-lg mt-3" data-toggle="modal" 
-                 id="newTicketBtn" data-target="#newTicketModal">New Ticket</button>
+        <button type="button" class="btn btn-primary btn-lg mt-3" data-toggle="modal" id="newTicketBtn" data-target="#newTicketModal">New Ticket</button>
 
         <!-- ticket card view -->
         <div class="card mt-4 mb-4">
@@ -96,7 +95,7 @@
                         <tr class="clickable-row">
                             <td class="ticket_id">{{ ticket.id }}</td>
                             <td>{{ ticket.get_status_display }}</td>
-                            <td class="ellipses">{{ ticket.description }}</td>
+                            <td class="ellipses" href data-toggle="tooltip" data-placement="top" title="{{ ticket.description }}" >{{ ticket.description }}</td>
                             <td>{{ ticket.creator }}</td>
                             <td class="ellipses">{{ ticket.creation_date }}</td>
                         </tr>
@@ -190,23 +189,23 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group row">
-                        <label for="location_detail" class="col-2 col-form-label"><b>Location:</b></label>
+                        <label for="location_detail" class="col-2 col-form-label "><b>Location:</b></label>
                         <div class="col-md-4">
-                            <input readonly class="form-control" type="text" value="The Placeholder" id="location_detail" name="location_detail">
+                            <input readonly class="form-control" type="text" value="The Placeholder" id="location_detail" name="location_detail" style="border: 1px;" >
                         </div>
                         <label for="status_detail" class="col-2 col-form-label"><b>Status:</b></label>
                         <div class="col-md-4">
-                            <input readonly class="form-control" type="text" value="Open">
+                            <input readonly class="form-control" type="text" value="Open" style="border: 0px;">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="requestor_detail" class="col-2 col-form-label"><b>Requestor:</b></label>
                         <div class="col-md-4">
-                            <input readonly class="form-control" type="text" value="The Placeholder Requestor" id="requestor_detail">
+                            <input readonly class="form-control" type="text" value="The Placeholder Requestor" id="status_detail" style="border: 0px;">
                         </div>
                         <label for="recipient_detail" class="col-2 col-form-label"><b>Recipient:</b></label>
                         <div class="col-md-4">
-                            <input readonly class="form-control" type="text" value="The Placeholder Recipient" id="recipient_detail">
+                            <input readonly class="form-control" type="text" value="The Placeholder Recipient" id="recipient_detail" style="border: 0px;">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -288,6 +287,13 @@
     }
 
 </script>
+    
+<script>
+    $(document).ready(function(){
+     $('[data-toggle="tooltip"]').tooltip(); 
+     });
+</script>
+    
 <script>
     $(document).ready(function() {
                 $('ticketTable').DataTable({
@@ -324,5 +330,5 @@
 </script>
 <!--local javascript utils file-->
 <script type="text/javascript " src={% static 'js/utils.js' %} charset="utf-8 "></script>
-
+    
 </html>

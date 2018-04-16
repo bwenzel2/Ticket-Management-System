@@ -1,5 +1,22 @@
 /* stylesheet for the home page */
 
+.tooltip > .tooltip-inner {
+    font-family: Allegretto Script One;
+    max-width: 600px;
+    padding: 3px 8px;
+    color: black;
+    background-color:#FAFAD2;
+    border-radius: .25rem;
+    font-size:15px;
+    border: 1px solid black;
+    z-index: 5;
+} 
+
+input[readonly] {
+    cursor:default;
+    background-color:white !important;
+}
+
 #ticketTable  {
     table-layout: fixed;
 }
@@ -52,6 +69,7 @@ textarea {
     font-size: 40px;
     border-radius: 10px;
 }
+
 
 #newTicketBtn {
     min-width:200px;
