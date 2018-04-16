@@ -15,8 +15,7 @@
 input[readonly] {
     cursor:default;
     background-color:white !important;
-}
-
+};
 #ticketTable  {
     table-layout: fixed;
 }
