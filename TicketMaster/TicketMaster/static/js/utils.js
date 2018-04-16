@@ -36,6 +36,18 @@ tbody.onclick = function (e) {
             var recipient = result[0].fields.recipient;
             $('#recipient_detail').val(recipient);
 
+            //status
+            var status_int = result[0].fields.status;
+            var status_string;
+            if (status_int == "0") {
+                status_string = "Open";
+            } else if (status_int == "1") {
+                status_string = "In Progress";
+            } else if (status_int == "2") {
+                status_string = "Closed";
+            }
+            $('#status_detail').val(status_string);
+
             //description
             var description = result[0].fields.description;
             $('#detail_description').text(description);
