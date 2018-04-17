@@ -95,7 +95,7 @@
                         <tr class="clickable-row">
                             <td class="ticket_id">{{ ticket.id }}</td>
                             <td>{{ ticket.get_status_display }}</td>
-                            <td class="ellipses" href data-toggle="tooltip" data-placement="top" title="{{ ticket.description }}" >{{ ticket.description }}</td>
+                            <td class="ellipses" href data-toggle="tooltip" data-placement="top" title="{{ ticket.description }}">{{ ticket.description }}</td>
                             <td>{{ ticket.creator }}</td>
                             <td class="ellipses">{{ ticket.creation_date }}</td>
                         </tr>
@@ -191,11 +191,11 @@
                     <div class="form-group row">
                         <label for="location_detail" class="col-2 col-form-label "><b>Location:</b></label>
                         <div class="col-md-4">
-                            <input readonly class="form-control" type="text" value="The Placeholder" id="location_detail" name="location_detail" style="border: 1px;" >
+                            <input readonly class="form-control" type="text" value="The Placeholder" id="location_detail" name="location_detail" style="border: 1px;">
                         </div>
                         <label for="status_detail" class="col-2 col-form-label"><b>Status:</b></label>
                         <div class="col-md-4">
-                            <input readonly class="form-control" type="text" value="Open" style="border: 0px;">
+                            <input readonly id="status_detail" class="form-control" type="text" value="Open" style="border: 0px;">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -287,13 +287,14 @@
     }
 
 </script>
-    
+
 <script>
-    $(document).ready(function(){
-     $('[data-toggle="tooltip"]').tooltip(); 
-     });
+    $(document).ready(function() {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+
 </script>
-    
+
 <script>
     $(document).ready(function() {
                 $('ticketTable').DataTable({
@@ -330,5 +331,5 @@
 </script>
 <!--local javascript utils file-->
 <script type="text/javascript " src={% static 'js/utils.js' %} charset="utf-8 "></script>
-    
+
 </html>
