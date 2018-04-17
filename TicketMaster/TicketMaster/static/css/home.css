@@ -78,3 +78,8 @@ textarea {
     font-size:30px;
     background-color:12A5F4;
 }
+
+#customFooter {
+    color: #a7adba;
+    font-size: 12px;
+}

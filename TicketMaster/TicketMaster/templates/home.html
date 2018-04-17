@@ -274,6 +274,36 @@
             </div>
         </div>
     </div>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class ="col-lg-12">
+                    <hr> 
+                </div>
+            </div>
+            <div class ="row">
+                <div class="col-lg-4">
+                    <address>
+                        <center id="customFooter">
+                        &copy; 2018 Easy Ticket, Inc.
+                        </center>
+                    </address>
+                </div>
+                <div class="col-lg-4">
+                        <center>
+                        <img src={% static 'img/refined-logo-footer-notext.png' %} style="width:50px; height:40px">
+                        </center>
+                </div>
+                <div class="col-lg-4" id="customFooter">
+                    <a href="#" id="customFooter">Contact</a> | 
+                    <a href="#" id="customFooter">Terms of Service</a> |
+                    <a href="#" id="customFooter">Help</a> |
+                    <a href="#" id="customFooter">Contact Us</a>
+                </div>
+            </div>
+            <br>
+        </div>
+    </footer>
 </body>
 
 
@@ -301,40 +331,6 @@
 
 </script>
 
-<script>
-    $(document).ready(function() {
-                $('ticketTable').DataTable({
-                    columnDefs: [{
-                        targets
-
-                    }]
-                })
-            }
-
-
-
-
-
-
-
-
-
-            $(document).ready(function() {
-                $('#example').DataTable({
-                    columnDefs: [{
-                        targets: [0],
-                        orderData: [0, 1]
-                    }, {
-                        targets: [1],
-                        orderData: [1, 0]
-                    }, {
-                        targets: [4],
-                        orderData: [4, 0]
-                    }]
-                });
-            });
-
-</script>
 <!--local javascript utils file-->
 <script type="text/javascript " src={% static 'js/utils.js' %} charset="utf-8 "></script>
 
