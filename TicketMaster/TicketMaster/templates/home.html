@@ -36,7 +36,12 @@
     <!-- enables the datatable with the dataTables stylesheet-->
     <script>
         $(document).ready(function() {
-            $('#ticketTable').DataTable();
+            $('#ticketTable').DataTable({
+                "columnDefs": [{
+                    "orderable": false,
+                    "targets": 2
+                }]
+            });
         });
 
     </script>
