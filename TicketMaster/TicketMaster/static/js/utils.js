@@ -256,7 +256,11 @@ function closeTicket() {
             solution: $('#solution_text').val()
         },
         success: function (result) {
-            alert('Success' + result[0].fields.status + ' ' + result[0].fields.solution);
+            //update the status in the ticket table
+            var tableRow = $("td").filter(function () {
+                return $(this).text() == ticketid;
+            }).closest("tr");
+            tableRow.find("td:eq(1)").text("Closed");
         },
         error: function (status) {
             alert('Error: ' + JSON.stringify(status));
