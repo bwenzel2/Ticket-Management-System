@@ -43,11 +43,17 @@ tbody.onclick = function (e) {
                 status_string = "Open";
 
                 $('#solution').hide();
+                $('#addUpdate').show();
+                $('#acceptTicketButton').show();
+                $('#closeTicketButton').show();
 
             } else if (status_int == "1") {
                 status_string = "In Progress";
 
                 $('#solution').hide();
+                $('#addUpdate').show();
+                $('#acceptTicketButton').show();
+                $('#closeTicketButton').show();
 
             } else if (status_int == "2") {
                 status_string = "Closed";
