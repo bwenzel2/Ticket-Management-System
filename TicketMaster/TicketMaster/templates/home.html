@@ -45,7 +45,9 @@
                     "orderable": false,
                     "targets": 2
                 }],
-                "order": [[ 4, "desc" ]]
+                "order": [
+                    [4, "desc"]
+                ]
             });
         });
 
@@ -237,19 +239,24 @@
                         <!--<div id="detail_description" class="px-1 py-1" name="detail_description" style="min-height: 0px; max-height: 200px; border:1px solid lightgrey; border-radius: 5px; width: 100%; overflow-y: auto"></div>-->
                     </div>
                     <br>
-                    <div class="form-group" style="cursor: default">
+                    <div id="updateLog" class="form-group" style="cursor: default">
                         <label for="detail_activity_log"><b>Update Log:</b></label>
                         <div id="detail_activity_log" name="detail_activity_log" style="height: 200px; border-0; width: 100%; overflow-y: auto"></div>
                     </div>
-                    <div class="form-group">
+                    <div id="addUpdate" class="form-group">
                         <label for="exampleTextarea"><b>Add New Update:</b></label>
                         <textarea class="form-control " id="update_text" name="update" rows="3"></textarea>
                         <button id="update_btn" type="button" class="btn btn-primary float-right mt-2" onclick="addUpdate()">Add Update</button>
                     </div>
+                    <div id="solution" class="form-group" style="cursor: default">
+                        <h3 for="detail_solution">Solution</h3>
+                        <hr style="width:75%; margin-left:0">
+                        <div name="detail_solution" id="detail_solution"></div>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" onclick="assignTicket()">Accept Ticket</button>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-dismiss="modal" data-target="#closeTicketModal" onclick="openCloseTicketModal()">Close Ticket</button>
+                    <button id="acceptTicketButton" type="button" class="btn btn-secondary" onclick="assignTicket()">Accept Ticket</button>
+                    <button id="closeTicketButton" type="button" class="btn btn-danger" data-toggle="modal" data-dismiss="modal" data-target="#closeTicketModal" onclick="openCloseTicketModal()">Close Ticket</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 </div>
             </div>
@@ -281,11 +288,11 @@
     <footer>
         <div class="container">
             <div class="row">
-                <div class ="col-lg-12">
-                    <hr> 
+                <div class="col-lg-12">
+                    <hr>
                 </div>
             </div>
-            <div class ="row">
+            <div class="row">
                 <div class="col-lg-4">
                     <address>
                         <center id="customFooter">
@@ -294,9 +301,9 @@
                     </address>
                 </div>
                 <div class="col-lg-4">
-                        <center>
+                    <center>
                         <img src={% static 'img/refined-logo-footer-notext.png' %} style="width:50px; height:40px">
-                        </center>
+                    </center>
                 </div>
                 <div class="col-lg-4" id="customFooter">
                     <a href="#" id="customFooter">About</a> |

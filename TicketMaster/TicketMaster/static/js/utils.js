@@ -41,16 +41,35 @@ tbody.onclick = function (e) {
             var status_string;
             if (status_int == "0") {
                 status_string = "Open";
+
+                $('#solution').hide();
+
             } else if (status_int == "1") {
                 status_string = "In Progress";
+
+                $('#solution').hide();
+
             } else if (status_int == "2") {
                 status_string = "Closed";
+
+                //remove close ticket button, the assign ticket button, add update functionality, and the ability to change the urgency
+                $('#addUpdate').hide();
+                $('#acceptTicketButton').hide();
+                $('#closeTicketButton').hide();
+                $('#solution').show();
+
+
+                //add solution to the detail view
             }
             $('#status_detail').val(status_string);
 
             //description
             var description = result[0].fields.description;
             $('#detail_description').text(description);
+
+            //solution
+            var solution = result[0].fields.solution;
+            $('#detail_solution').text(solution);
 
             var urgency_int = result[0].fields.urgency;
             var urgency_string;
@@ -80,7 +99,9 @@ tbody.onclick = function (e) {
             result.forEach(function (arrayItem) {
                 $('#detail_activity_log').append('<li class="list-group-item">' + "UPDATE: " + arrayItem.fields.creation_date + "<br>" + arrayItem.fields.description + '</li>');
             });
-            //alert('Success' + JSON.stringify(result));
+            if (result.length == 0) {
+                $('#updateLog').hide();
+            }
         }
     });
     //show the ticket info in the modal
@@ -127,6 +148,8 @@ function addUpdate() {
             // alert('Success' + JSON.stringify(result));
             // add the new alert at the top of the activity log
             $('#detail_activity_log').prepend('<li class="list-group-item">' + result[0].fields.creator + " on " + result[0].fields.creation_date + '<br><div>' + result[0].fields.description + '</div></li>');
+
+            $('#updateLog').show();
         },
         error: function (status) {
             alert('Error: ' + JSON.stringify(status));
@@ -187,10 +210,11 @@ function assignTicket() {
             $('#status_detail').val(status_string);
 
 
-            var tableRow = $(".ticket_id").filter(function () {
+            //update the status in the ticket table
+            var tableRow = $("td").filter(function () {
                 return $(this).text() == ticketid;
             }).closest("tr");
-            alert(JSON.stringify(tableRow));
+            tableRow.find("td:eq(1)").text("In Progress");
         },
         error: function (status) {
             alert('Error: ' + JSON.stringify(status));
@@ -233,7 +257,11 @@ function closeTicket() {
             solution: $('#solution_text').val()
         },
         success: function (result) {
-            alert('Success' + result[0].fields.status + ' ' + result[0].fields.solution);
+            //update the status in the ticket table
+            var tableRow = $("td").filter(function () {
+                return $(this).text() == ticketid;
+            }).closest("tr");
+            tableRow.find("td:eq(1)").text("Closed");
         },
         error: function (status) {
             alert('Error: ' + JSON.stringify(status));
