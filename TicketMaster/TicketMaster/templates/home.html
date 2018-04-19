@@ -18,7 +18,11 @@
 
     <!-- fontawesome javascript -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-
+    <script>
+    if ($('#detail_activity_log')).length) {
+        $('#detail_activity_log').hide();
+    }   
+    </script>
 
     <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
     <!--popper (for dataTables)-->
@@ -188,7 +192,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 id="ticketDetailTitle" class="modal-title"></h5>
+                    <h1 id="ticketDetailTitle" class="modal-title"></h1>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                               <span aria-hidden="true">&times;</span>
                         </button>
@@ -227,7 +231,7 @@
                     </div>
                     <div class="form-group" style="cursor: default">
                         <h3 for="detail_description">Description</h3>
-                        <hr style="width:75%; margin-left:0">
+                        <hr>
                         <!--<textarea readonly class="form-control" id="desc" name="description" rows="5"></textarea>-->
                         <div name="detail_description" id="detail_description"></div>
                         <!--<div id="detail_description" class="px-1 py-1" name="detail_description" style="min-height: 0px; max-height: 200px; border:1px solid lightgrey; border-radius: 5px; width: 100%; overflow-y: auto"></div>-->
@@ -295,7 +299,7 @@
                         </center>
                 </div>
                 <div class="col-lg-4" id="customFooter">
-                    <a href="#" id="customFooter">Contact</a> | 
+                    <a href="#" id="customFooter">About</a> |
                     <a href="#" id="customFooter">Terms of Service</a> |
                     <a href="#" id="customFooter">Help</a> |
                     <a href="#" id="customFooter">Contact Us</a>
@@ -328,8 +332,8 @@
     $(document).ready(function() {
         $('[data-toggle="tooltip"]').tooltip();
     });
-
 </script>
+
 
 <!--local javascript utils file-->
 <script type="text/javascript " src={% static 'js/utils.js' %} charset="utf-8 "></script>
