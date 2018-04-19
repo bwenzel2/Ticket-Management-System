@@ -43,11 +43,17 @@ tbody.onclick = function (e) {
                 status_string = "Open";
 
                 $('#solution').hide();
+                $('#addUpdate').show();
+                $('#acceptTicketButton').show();
+                $('#closeTicketButton').show();
 
             } else if (status_int == "1") {
                 status_string = "In Progress";
 
                 $('#solution').hide();
+                $('#addUpdate').show();
+                $('#acceptTicketButton').show();
+                $('#closeTicketButton').show();
 
             } else if (status_int == "2") {
                 status_string = "Closed";
@@ -147,7 +153,12 @@ function addUpdate() {
         success: function (result) {
             // alert('Success' + JSON.stringify(result));
             // add the new alert at the top of the activity log
-            $('#detail_activity_log').prepend('<li class="list-group-item">' + result[0].fields.creator + " on " + result[0].fields.creation_date + '<br><div>' + result[0].fields.description + '</div></li>');
+            var dateString = result[0].fields.creation_date;
+            $('#detail_activity_log').prepend('<div class="list-group-item flex-column align-items-start"><div class="d-flex w-100 justify-content-between"><small>' + result[0].fields.creator + ' on ' + dateString.substring(5, 7) + '/' + dateString.substring(8, 10) + '/' + dateString.substring(0, 4) + '</small></div>' + result[0].fields.description + '</div>'
+
+
+                //'<li class="list-group-item"><p style="font-size: 10px">' + result[0].fields.creator + " on " + dateString.substring(5, 7) + '/' + dateString.substring(8, 10) + '/' + dateString.substring(0, 4) + '</p><br><p>' + result[0].fields.description + '</p></li>'
+            );
 
             $('#updateLog').show();
         },
