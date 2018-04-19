@@ -18,27 +18,27 @@
 
     <!-- fontawesome javascript -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-    
+
 
     <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
     <!--popper (for dataTables)-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js " integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q " crossorigin="anonymous "></script>
     <!-- dataTables -->
     <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    
+
     <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
 
     <!--bootstrap.min.js-->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js " integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn " crossorigin="anonymous "></script>
-    
+
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
     <script src="//cdn.datatables.net/plug-ins/1.10.12/sorting/datetime-moment.js"></script>
 </head>
 
 <body>
     <!-- enables the datatable with the dataTables stylesheet-->
-    
+
     <script>
         $(document).ready(function() {
             $.fn.dataTable.moment( 'MMMM DD, YYYY, HH:mm A' );
@@ -46,7 +46,7 @@
                 "columnDefs": [{
                     "orderable": false,
                     "targets": 2
-                }], 
+                }],
             });
         });
     </script>
@@ -96,7 +96,117 @@
                     </li>
                 </ul>
             </div>
-            <div class="card-body mx-2 py-3" style="overflow-x: scroll">
+            <div id="myTabContent" class="tab-content">
+               <div class="tab-pane in active" id="openTab">
+                <div class="card-body mx-2 py-3" style="overflow-x: scroll">
+                    <table id="ticketTable" class="table table-hover mt-2 display">
+                        <thead class="thead-inverse">
+                            <tr>
+                                <th style="width: 90px; max-width: 90px;">Ticket #</th>
+                                <th style="width: 90px">Status</th>
+                                <th style="width: 400px">Description</th>
+                                <th style="width: 90px">Creator</th>
+                                <th style="width: 180px">Creation Date</th>
+                            </tr>
+                        </thead>
+                        <tbody style="font-size: 12">
+
+                            {% for ticket in tickets_open %}
+                            <tr class="clickable-row">
+                                <td class="ticket_id">{{ ticket.id }}</td>
+                                <td>{{ ticket.get_status_display }}</td>
+                                <td class="ellipses" href data-toggle="tooltip" data-placement="top" title="{{ ticket.description }}">{{ ticket.description }}</td>
+                                <td>{{ ticket.creator }}</td>
+                                <td class="ellipses">{{ ticket.creation_date }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+                <div class="tab-pane " id="closedTab">
+                 <div class="card-body mx-2 py-3" style="overflow-x: scroll">
+                     <table id="ticketTable" class="table table-hover mt-2 display">
+                         <thead class="thead-inverse">
+                             <tr>
+                                 <th style="width: 90px; max-width: 90px;">Ticket #</th>
+                                 <th style="width: 90px">Status</th>
+                                 <th style="width: 400px">Description</th>
+                                 <th style="width: 90px">Creator</th>
+                                 <th style="width: 180px">Creation Date</th>
+                             </tr>
+                         </thead>
+                         <tbody style="font-size: 12">
+
+                             {% for ticket in tickets_closed %}
+                             <tr class="clickable-row">
+                                 <td class="ticket_id">{{ ticket.id }}</td>
+                                 <td>{{ ticket.get_status_display }}</td>
+                                 <td class="ellipses" href data-toggle="tooltip" data-placement="top" title="{{ ticket.description }}">{{ ticket.description }}</td>
+                                 <td>{{ ticket.creator }}</td>
+                                 <td class="ellipses">{{ ticket.creation_date }}</td>
+                             </tr>
+                             {% endfor %}
+                         </tbody>
+                     </table>
+                 </div>
+                 </div>
+                 <div class="tab-pane " id="inProgessTab">
+                  <div class="card-body mx-2 py-3" style="overflow-x: scroll">
+                      <table id="ticketTable" class="table table-hover mt-2 display">
+                          <thead class="thead-inverse">
+                              <tr>
+                                  <th style="width: 90px; max-width: 90px;">Ticket #</th>
+                                  <th style="width: 90px">Status</th>
+                                  <th style="width: 400px">Description</th>
+                                  <th style="width: 90px">Creator</th>
+                                  <th style="width: 180px">Creation Date</th>
+                              </tr>
+                          </thead>
+                          <tbody style="font-size: 12">
+
+                              {% for ticket in tickets_inprogress %}
+                              <tr class="clickable-row">
+                                  <td class="ticket_id">{{ ticket.id }}</td>
+                                  <td>{{ ticket.get_status_display }}</td>
+                                  <td class="ellipses" href data-toggle="tooltip" data-placement="top" title="{{ ticket.description }}">{{ ticket.description }}</td>
+                                  <td>{{ ticket.creator }}</td>
+                                  <td class="ellipses">{{ ticket.creation_date }}</td>
+                              </tr>
+                              {% endfor %}
+                          </tbody>
+                      </table>
+                  </div>
+                  </div>
+                  <div class="tab-pane " id="allTab">
+                   <div class="card-body mx-2 py-3" style="overflow-x: scroll">
+                       <table id="ticketTable" class="table table-hover mt-2 display">
+                           <thead class="thead-inverse">
+                               <tr>
+                                   <th style="width: 90px; max-width: 90px;">Ticket #</th>
+                                   <th style="width: 90px">Status</th>
+                                   <th style="width: 400px">Description</th>
+                                   <th style="width: 90px">Creator</th>
+                                   <th style="width: 180px">Creation Date</th>
+                               </tr>
+                           </thead>
+                           <tbody style="font-size: 12">
+
+                               {% for ticket in tickets_all %}
+                               <tr class="clickable-row">
+                                   <td class="ticket_id">{{ ticket.id }}</td>
+                                   <td>{{ ticket.get_status_display }}</td>
+                                   <td class="ellipses" href data-toggle="tooltip" data-placement="top" title="{{ ticket.description }}">{{ ticket.description }}</td>
+                                   <td>{{ ticket.creator }}</td>
+                                   <td class="ellipses">{{ ticket.creation_date }}</td>
+                               </tr>
+                               {% endfor %}
+                           </tbody>
+                       </table>
+                   </div>
+                   </div>
+               </div>
+            <!-- <div class="card-body mx-2 py-3" style="overflow-x: scroll">
                 <table id="ticketTable" class="table table-hover mt-2 display">
                     <thead class="thead-inverse">
                         <tr>
@@ -119,7 +229,7 @@
                         {% endfor %}
                     </tbody>
                 </table>
-            </div>
+            </div> -->
         </div>
         <!-- ticket card view -->
     </div>
