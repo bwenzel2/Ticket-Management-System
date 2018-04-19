@@ -1,5 +1,5 @@
 {% load static %}
-
+{% load timetags %}
 <html>
 
 <head>
@@ -18,42 +18,45 @@
 
     <!-- fontawesome javascript -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-    <script>
-    if ($('#detail_activity_log')).length) {
-        $('#detail_activity_log').hide();
-    }   
-    </script>
     
-    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
-    <script src="//cdn.datatables.net/plug-ins/1.10.12/sorting/datetime-moment.js"></script>
+
     <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
     <!--popper (for dataTables)-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js " integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q " crossorigin="anonymous "></script>
     <!-- dataTables -->
     <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    
     <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
 
     <!--bootstrap.min.js-->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js " integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn " crossorigin="anonymous "></script>
+    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+    <script src="//cdn.datatables.net/plug-ins/1.10.12/sorting/datetime-moment.js"></script>
 </head>
 
 <body>
     <!-- enables the datatable with the dataTables stylesheet-->
+    
     <script>
         $(document).ready(function() {
+            $.fn.dataTable.moment( 'MMMM DD, YYYY, HH:mm A' );
             $('#ticketTable').DataTable({
                 "columnDefs": [{
                     "orderable": false,
                     "targets": 2
-                }],
-                "order": [
-                    [4, "desc"]
-                ]  
+                }], 
             });
         });
     </script>
+    <script>
+        $(document).ready(function() {
+            $.fn.dataTable.moment( 'MMMM DD, YYYY, HH:mm A' );
 
+            $('#ticketTable').DataTable();
+        } );
+    </script>
     <!-- navbar -->
     <nav class="navbar navbar-toggleable navbar-inverse bg-inverse navbar-fixed-top">
         <a href="/" class="navbar-brand" style="font-family:Syncopate; font-size:25px">Easy Ticket</a>
@@ -111,7 +114,7 @@
                             <td>{{ ticket.get_status_display }}</td>
                             <td class="ellipses" href data-toggle="tooltip" data-placement="top" title="{{ ticket.description }}">{{ ticket.description }}</td>
                             <td>{{ ticket.creator }}</td>
-                            <td class="ellipses">{{ ticket.creation_date }}</td>
+                            <td class="ellipses">{{ ticket.creation_date|print_timestamp }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
