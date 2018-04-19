@@ -1,7 +1,5 @@
 from django.db import models
 from django.utils import timezone
-import uuid
-import time
 from django.db import transaction
 
 # Ticket class
@@ -37,8 +35,11 @@ class Ticket(models.Model):
 class Update(models.Model):
 	description = models.TextField(default="this is the default description for an update", null=True)
 	creator = models.ForeignKey('auth.User', on_delete=models.PROTECT, default=1)
-	creation_date = models.DateTimeField(default=timezone.now)
 	ticket = models.ForeignKey(Ticket, on_delete=models.PROTECT, null=True)
+	creation_date = models.DateTimeField(auto_now_add=True)
+	
+	def create(self):
+		self.save()
 	
 		
 	

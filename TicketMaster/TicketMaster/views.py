@@ -5,6 +5,8 @@ from .models import Ticket, Update
 from django.core import serializers
 from django.http import HttpResponse, Http404
 
+from django.utils import timezone
+
 from django.contrib.auth.decorators import login_required
 
 
