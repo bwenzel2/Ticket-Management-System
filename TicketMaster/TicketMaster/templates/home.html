@@ -23,7 +23,9 @@
         $('#detail_activity_log').hide();
     }   
     </script>
-
+    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+    <script src="//cdn.datatables.net/plug-ins/1.10.12/sorting/datetime-moment.js"></script>
     <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
     <!--popper (for dataTables)-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js " integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q " crossorigin="anonymous "></script>
@@ -47,11 +49,11 @@
                 }],
                 "order": [
                     [4, "desc"]
-                ]
+                ]  
             });
         });
-
     </script>
+
     <!-- navbar -->
     <nav class="navbar navbar-toggleable navbar-inverse bg-inverse navbar-fixed-top">
         <a href="/" class="navbar-brand" style="font-family:Syncopate; font-size:25px">Easy Ticket</a>
