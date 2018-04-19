@@ -16,6 +16,7 @@ def custom_login(request):
 
 @login_required
 def home(request):
+	tickets  = Ticket.objects.filter()
 	tickets_all = Ticket.objects.filter()
 	tickets_open = Ticket.objects.filter(status="0")
 	tickets_inprogress = Ticket.objects.filter(status="1")
