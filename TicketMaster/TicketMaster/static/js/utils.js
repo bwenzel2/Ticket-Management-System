@@ -210,10 +210,11 @@ function assignTicket() {
             $('#status_detail').val(status_string);
 
 
-            var tableRow = $(".ticket_id").filter(function () {
+            //update the status in the ticket table
+            var tableRow = $("td").filter(function () {
                 return $(this).text() == ticketid;
             }).closest("tr");
-            alert(JSON.stringify(tableRow));
+            tableRow.find("td:eq(1)").text("In Progress");
         },
         error: function (status) {
             alert('Error: ' + JSON.stringify(status));
