@@ -17,12 +17,12 @@ def custom_login(request):
 @login_required
 def home(request):
 	tickets  = Ticket.objects.filter()
-	tickets_all = Ticket.objects.filter()
-	tickets_open = Ticket.objects.filter(status="0")
-	tickets_inprogress = Ticket.objects.filter(status="1")
-	tickets_closed = Ticket.objects.filter(status="2")
-	return render(request, 'home.html', {'tickets_all': tickets_all,'tickets_open': tickets_open,'tickets_inprogress': tickets_inprogress,'tickets_closed': tickets_closed})
-
+	# tickets_all = Ticket.objects.filter()
+	# tickets_open = Ticket.objects.filter(status="0")
+	# tickets_inprogress = Ticket.objects.filter(status="1")
+	# tickets_closed = Ticket.objects.filter(status="2")
+	# return render(request, 'home.html', {'tickets_all': tickets_all,'tickets_open': tickets_open,'tickets_inprogress': tickets_inprogress,'tickets_closed': tickets_closed})
+	return render(request, 'home.html', {'tickets' : tickets })
 #creates a new ticket
 @login_required
 def new_ticket(request):

@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{% static 'css/home.css' %}" type="text/css">
 
     <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css" type="text/css">-->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" type="text/css">
+
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 
@@ -26,6 +26,8 @@
     <!-- dataTables -->
     <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
 
+    <!-- need to have jquery loaded before datatables to allow script to be put at the bottom -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" type="text/css">
     <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
 
@@ -39,24 +41,7 @@
 <body>
     <!-- enables the datatable with the dataTables stylesheet-->
 
-    <script>
-        $(document).ready(function() {
-            $.fn.dataTable.moment( 'MMMM DD, YYYY, HH:mm A' );
-            $('#ticketTable').DataTable({
-                "columnDefs": [{
-                    "orderable": false,
-                    "targets": 2
-                }],
-            });
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
-            $.fn.dataTable.moment( 'MMMM DD, YYYY, HH:mm A' );
 
-            $('#ticketTable').DataTable();
-        } );
-    </script>
     <!-- navbar -->
     <nav class="navbar navbar-toggleable navbar-inverse bg-inverse navbar-fixed-top">
         <a href="/" class="navbar-brand" style="font-family:Syncopate; font-size:25px">Easy Ticket</a>
@@ -83,16 +68,16 @@
             <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs pull-left" id="myTab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#allTab" role="tab" aria-controls="home" aria-selected="true">Open</a>
+                        <a class="nav-link active" id="open-tab" data-toggle="tab" href="#openTab" role="tab" aria-controls="home" aria-selected="true">Open</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#allTab" role="tab" aria-controls="profile" aria-selected="false">In Progress</a>
+                        <a class="nav-link" id="progress-tab" data-toggle="tab" href="#inprogressTab" role="tab" aria-controls="profile" aria-selected="false">In Progress</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#allTab" role="tab" aria-controls="contact" aria-selected="false">Closed</a>
+                        <a class="nav-link" id="closed-tab" data-toggle="tab" href="#closedTab" role="tab" aria-controls="contact" aria-selected="false">Closed</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#allTab" role="tab" aria-controls="contact" aria-selected="false">All</a>
+                        <a class="nav-link" id="all-tab" data-toggle="tab" href="#allTab" role="tab" aria-controls="contact" aria-selected="false">All</a>
                     </li>
                 </ul>
             </div>
@@ -111,7 +96,7 @@
                         </thead>
                         <tbody style="font-size: 12">
 
-                            {% for ticket in tickets_open %}
+                            {% for ticket in tickets %}
                             <tr class="clickable-row">
                                 <td class="ticket_id">{{ ticket.id }}</td>
                                 <td>{{ ticket.get_status_display }}</td>
@@ -124,87 +109,7 @@
                     </table>
                 </div>
                 </div>
-                <div class="tab-pane " id="closedTab">
-                 <div class="card-body mx-2 py-3" style="overflow-x: scroll">
-                     <table id="ticketTable" class="table table-hover mt-2 display">
-                         <thead class="thead-inverse">
-                             <tr>
-                                 <th style="width: 90px; max-width: 90px;">Ticket #</th>
-                                 <th style="width: 90px">Status</th>
-                                 <th style="width: 400px">Description</th>
-                                 <th style="width: 90px">Creator</th>
-                                 <th style="width: 180px">Creation Date</th>
-                             </tr>
-                         </thead>
-                         <tbody style="font-size: 12">
 
-                             {% for ticket in tickets_closed %}
-                             <tr class="clickable-row">
-                                 <td class="ticket_id">{{ ticket.id }}</td>
-                                 <td>{{ ticket.get_status_display }}</td>
-                                 <td class="ellipses" href data-toggle="tooltip" data-placement="top" title="{{ ticket.description }}">{{ ticket.description }}</td>
-                                 <td>{{ ticket.creator }}</td>
-                                 <td class="ellipses">{{ ticket.creation_date }}</td>
-                             </tr>
-                             {% endfor %}
-                         </tbody>
-                     </table>
-                 </div>
-                 </div>
-                 <div class="tab-pane " id="inProgessTab">
-                  <div class="card-body mx-2 py-3" style="overflow-x: scroll">
-                      <table id="ticketTable" class="table table-hover mt-2 display">
-                          <thead class="thead-inverse">
-                              <tr>
-                                  <th style="width: 90px; max-width: 90px;">Ticket #</th>
-                                  <th style="width: 90px">Status</th>
-                                  <th style="width: 400px">Description</th>
-                                  <th style="width: 90px">Creator</th>
-                                  <th style="width: 180px">Creation Date</th>
-                              </tr>
-                          </thead>
-                          <tbody style="font-size: 12">
-
-                              {% for ticket in tickets_inprogress %}
-                              <tr class="clickable-row">
-                                  <td class="ticket_id">{{ ticket.id }}</td>
-                                  <td>{{ ticket.get_status_display }}</td>
-                                  <td class="ellipses" href data-toggle="tooltip" data-placement="top" title="{{ ticket.description }}">{{ ticket.description }}</td>
-                                  <td>{{ ticket.creator }}</td>
-                                  <td class="ellipses">{{ ticket.creation_date }}</td>
-                              </tr>
-                              {% endfor %}
-                          </tbody>
-                      </table>
-                  </div>
-                  </div>
-                  <div class="tab-pane " id="allTab">
-                   <div class="card-body mx-2 py-3" style="overflow-x: scroll">
-                       <table id="ticketTable" class="table table-hover mt-2 display">
-                           <thead class="thead-inverse">
-                               <tr>
-                                   <th style="width: 90px; max-width: 90px;">Ticket #</th>
-                                   <th style="width: 90px">Status</th>
-                                   <th style="width: 400px">Description</th>
-                                   <th style="width: 90px">Creator</th>
-                                   <th style="width: 180px">Creation Date</th>
-                               </tr>
-                           </thead>
-                           <tbody style="font-size: 12">
-
-                               {% for ticket in tickets_all %}
-                               <tr class="clickable-row">
-                                   <td class="ticket_id">{{ ticket.id }}</td>
-                                   <td>{{ ticket.get_status_display }}</td>
-                                   <td class="ellipses" href data-toggle="tooltip" data-placement="top" title="{{ ticket.description }}">{{ ticket.description }}</td>
-                                   <td>{{ ticket.creator }}</td>
-                                   <td class="ellipses">{{ ticket.creation_date }}</td>
-                               </tr>
-                               {% endfor %}
-                           </tbody>
-                       </table>
-                   </div>
-                   </div>
                </div>
             <!-- <div class="card-body mx-2 py-3" style="overflow-x: scroll">
                 <table id="ticketTable" class="table table-hover mt-2 display">
@@ -437,6 +342,76 @@
 
 
 
+<!-- filters table based on what tab is clicked and then redraws the table
+currently requires a refresh to update any new tickets that are added   -->
+  <script>
+      $(document).ready(function() {
+          $.fn.dataTable.moment( 'MMMM DD, YYYY, HH:mm A' );
+          var table =$('#ticketTable').DataTable({
+              "columnDefs": [{
+                  "orderable": false,
+                  "targets": 2
+              }],
+          });
+           table
+            .columns( 1 )
+            .search( 'Open' )
+            .draw();
+      });
+  </script>
+
+
+  <script>
+      $("#open-tab").click(function() {
+
+          var table =$('#ticketTable').DataTable();
+
+           table
+            .columns( 1 )
+            .search( 'Open' )
+            .draw();
+          //alert("test");
+      });
+  </script>
+
+  <script>
+      $("#progress-tab").click(function() {
+
+          var table =$('#ticketTable').DataTable();
+
+           table
+            .columns( 1 )
+            .search( 'In progress' )
+            .draw();
+          //alert("test");
+      });
+  </script>
+
+  <script>
+      $("#closed-tab").click(function() {
+
+          var table =$('#ticketTable').DataTable();
+
+           table
+            .columns( 1 )
+            .search( 'Closed' )
+            .draw();
+          //alert("test");
+      });
+  </script>
+
+  <script>
+      $("#all-tab").click(function() {
+
+          var table =$('#ticketTable').DataTable();
+
+           table
+            .columns( 1 )
+            .search( '' )
+            .draw();
+          //alert("test");
+      });
+  </script>
 
 <script>
     //used for table size when window is resized
