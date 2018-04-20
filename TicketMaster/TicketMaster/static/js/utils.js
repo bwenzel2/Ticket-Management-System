@@ -1,5 +1,7 @@
 var table = document.getElementsByTagName("table")[0];
 var tbody = table.getElementsByTagName("tbody")[0];
+var table =$('#ticketTable').DataTable();
+
 tbody.onclick = function (e) {
     e = e || window.event;
     var data = [];
@@ -226,6 +228,7 @@ function assignTicket() {
                 return $(this).text() == ticketid;
             }).closest("tr");
             tableRow.find("td:eq(1)").text("In Progress");
+
         },
         error: function (status) {
             alert('Error: ' + JSON.stringify(status));
@@ -284,8 +287,10 @@ function closeTicket() {
 
 function openCloseTicketModal() {
     $('#ticketDetailModal').hide();
+
 }
 
 function cancelCloseTicketModal() {
     $('#closeTicketModal').modal('hide');
+    alert("hello");
 }

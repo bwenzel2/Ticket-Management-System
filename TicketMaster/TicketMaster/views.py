@@ -3,8 +3,8 @@ from django.contrib.auth.views import login
 from django.shortcuts import redirect
 from .models import Ticket, Update
 from django.core import serializers
-from django.http import HttpResponse, Http404
-
+from django.http import HttpResponse, Http404, JsonResponse
+import json
 from django.utils import timezone
 
 from django.contrib.auth.decorators import login_required
@@ -22,7 +22,8 @@ def home(request):
 	# tickets_inprogress = Ticket.objects.filter(status="1")
 	# tickets_closed = Ticket.objects.filter(status="2")
 	# return render(request, 'home.html', {'tickets_all': tickets_all,'tickets_open': tickets_open,'tickets_inprogress': tickets_inprogress,'tickets_closed': tickets_closed})
-	return render(request, 'home.html', {'tickets' : tickets })
+	# ticket_json= list(tickets.values())
+	return render(request, 'home.html', {'tickets' : tickets})
 #creates a new ticket
 @login_required
 def new_ticket(request):
