@@ -1,0 +1,61 @@
+{% extends "home.html" %}
+{% load static %}
+
+{% block content %}
+<div class="card mt-4 mb-4" style="min-width:350px; width:50%; margin-left: auto; margin-right: auto">
+    <div class="container-fluid">
+        <br><br>
+        <h1 class="display-4"><b>About Easy Ticket</b></h1>
+        <hr>
+        <br>
+        <div class="row">
+        <div class="col-11">
+        <p style="display:inline-block; margin-left: 40px">
+            The “Easy Ticket” Ticket Management System is a secure, lightweight ticket management
+            solution for small IT teams that doesn’t want the complexity, steep learning curves, or the
+            expense of larger commercial solutions. Focused on ease of use, the system is optimized for
+            the four core activities necessary in any ticket management system: creating new tickets,
+            updating existing tickets as the issue evolves, closing tickets when the issue is resolved,
+            and searching both open and closed tickets to update progress or reference past issues and
+            solutions. With a responsive and minimal interface specifically designed for a minimal
+            learning curve and reducing the time it takes to deal with tickets, technicians can spend
+            more time fixing issues and less time struggling to learn or remember how their ticketing
+            system works.
+        </p>
+        <br><br><br>
+    </div>
+    </div>
+    </div>
+</div>
+<div class="card mt-4 mb-4" style="min-width:350px; width:50%; margin-left: auto; margin-right: auto">
+    <footer>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5" style="overflow: hidden;white-space: nowrap">
+                    <address id="customFooter">
+                        &copy; 2018 Easy Ticket, Inc.
+                    </address>
+                </div>
+                <div class="col-2">
+                    <center>
+                        <a href="/">
+                            <img src={% static 'img/refined-logo-footer-notext.png' %} style="width:50px; height:40px">
+                        </a>
+                    </center>
+                </div>
+                <div class="col-5" id="customFooter" style="text-align:right; overflow:auto;white-space: nowrap">
+                    <a href="/about/" id="customFooter">About</a> |
+                    <a href="/help/" id="customFooter">Help</a> |
+                    <a href="/contact_us/" id="customFooter">Contact Us</a>
+                </div>
+            </div>
+            <br>  
+        </div>
+    </footer>
+</div>
+{% endblock %}

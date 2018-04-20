@@ -17,7 +17,7 @@ def custom_login(request):
 @login_required
 def home(request):
 	tickets = Ticket.objects.filter()
-	return render(request, 'home.html', {'tickets': tickets})
+	return render(request, 'homepage.html', {'tickets': tickets})
 
 #creates a new ticket	
 @login_required	
@@ -112,3 +112,12 @@ def close_ticket(request):
 	tickets = Ticket.objects.filter(id=ticket_id)
 	response = serializers.serialize("json", tickets, use_natural_foreign_keys=True)
 	return HttpResponse(response, content_type='application/json')
+
+def about(request):
+    return render (request, 'about.html')
+
+def help(request):
+    return render (request, 'help.html')
+
+def contact_us(request):
+    return render (request, 'contact_us.html')

@@ -1,11 +1,15 @@
 /* stylesheet for the home page */
+.bkgd {
+    background-image:url(../img/home-background.jpg);
+    background-size:cover;
+}
 
 .tooltip > .tooltip-inner {
     font-family: Allegretto Script One;
     max-width: 600px;
     padding: 3px 8px;
     color: black;
-    background-color:#FAFAD2;
+    background-color:lightgray;
     border-radius: .25rem;
     font-size:15px;
     border: 1px solid black;
@@ -80,6 +84,6 @@ textarea {
 }
 
 #customFooter {
-    color: #a7adba;
+    color: #bdbdbd;
     font-size: 12px;
 }

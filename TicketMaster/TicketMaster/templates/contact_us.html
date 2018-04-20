@@ -1,0 +1,76 @@
+{% extends "home.html" %}
+{% load static %}
+
+{% block content %}
+<div class="card mt-4 mb-4" style="min-width:350px; width:50%; margin-left: auto; margin-right: auto">
+    <div class="container-fluid">
+        <br><br>
+        <h1 class="display-4"><b>Contact Us</b></h1>
+        <hr>
+        <br>
+
+        <div class="row" style="align-items: center">
+            <div class="col-11" >
+                <p class="h4">Need help with Easy Ticket?</p>
+                <p style="display:inline-block; margin-left: 40px">
+                    Check out our help page to find answers to frequently asked questions.
+                    You can find detailed explanations as to how our core functionality is
+                    operated, some tips to utilize the interface more efficiently, and more.
+                </p>
+                <p style="display:inline-block; margin-left: 40px">
+                    If your problem was not found on our help page, please feel free to
+                    fill out the following form to our support team.
+                </p>
+                
+                <form>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1"><b>Email Address</b></label>
+                        <input type="email" class="form-control" aria-describedby="emailHelp">
+                    </div>
+                    <div class="form-group">
+                        <label for="validationDefault03"><b>Subject</b></label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1"><b>How can we help?</b></label>
+                        <textarea class="form-control" rows="5"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="background-color:12A5F4">Submit</button>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card mt-4 mb-4" style="min-width:350px; width:50%; margin-left: auto; margin-right: auto">
+    <footer>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5" style="overflow: auto;white-space: nowrap">
+                    <address id="customFooter">
+                        &copy; 2018 Easy Ticket, Inc.
+                    </address>
+                </div>
+                <div class="col-2">
+                    <center>
+                        <a href="/">
+                            <img src={% static 'img/refined-logo-footer-notext.png' %} style="width:50px; height:40px">
+                        </a>
+                    </center>
+                </div>
+                <div class="col-5" id="customFooter" style="text-align:right; overflow:auto;white-space: nowrap">
+                    <a href="/about/" id="customFooter">About</a> |
+                    <a href="/help/" id="customFooter">Help</a> |
+                    <a href="/contact_us/" id="customFooter">Contact Us</a>
+                </div>
+            </div>
+            <br>  
+        </div>
+    </footer>
+</div>
+{% endblock %}

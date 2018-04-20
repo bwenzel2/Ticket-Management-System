@@ -1,0 +1,84 @@
+{% extends "home.html" %}
+{% load timetags %}
+{% load static %}
+
+{% block content %}
+<!-- new ticket button-->
+<button type="button" class="btn btn-primary btn-lg mt-3" data-toggle="modal" id="newTicketBtn" data-target="#newTicketModal">New Ticket</button>
+
+<!-- ticket card view -->
+<div class="card mt-4 mb-4">
+    <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs pull-left" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#allTab" role="tab" aria-controls="home" aria-selected="true">Open</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#allTab" role="tab" aria-controls="profile" aria-selected="false">In Progress</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#allTab" role="tab" aria-controls="contact" aria-selected="false">Closed</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#allTab" role="tab" aria-controls="contact" aria-selected="false">All</a>
+            </li>
+        </ul>
+    </div>
+    <div class="card-body mx-2 py-3" style="overflow-x: scroll">
+        <table id="ticketTable" class="table table-hover mt-2 display">
+            <thead class="thead-inverse">
+                <tr>
+                    <th style="width: 90px; max-width: 90px;">Ticket #</th>
+                    <th style="width: 90px">Status</th>
+                    <th style="width: 400px">Description</th>
+                    <th style="width: 90px">Creator</th>
+                    <th style="width: 180px">Creation Date</th>
+                </tr>
+            </thead>
+            <tbody style="font-size: 12">
+                {% for ticket in tickets %}
+                <tr class="clickable-row">
+                    <td class="ticket_id">{{ ticket.id }}</td>
+                    <td>{{ ticket.get_status_display }}</td>
+                    <td class="ellipses" href data-toggle="tooltip" data-placement="top" title="{{ ticket.description }}">{{ ticket.description }}</td>
+                    <td>{{ ticket.creator }}</td>
+                    <td class="ellipses">{{ ticket.creation_date|print_timestamp }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- ticket card view -->
+<div class="card mt-4 mb-4">
+    <footer>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5" style="overflow: hidden;white-space: nowrap">
+                    <address id="customFooter">
+                        &copy; 2018 Easy Ticket, Inc.
+                    </address>
+                </div>
+                <div class="col-2">
+                    <center>
+                        <a href="/">
+                            <img src={% static 'img/refined-logo-footer-notext.png' %} style="width:50px; height:40px">
+                        </a>
+                    </center>
+                </div>
+                <div class="col-5" style="color: #bdbdbd; font-size: 12px; text-align:right; overflow: auto; white-space: nowrap;">
+                    <a href="/about/" id="customFooter">About</a> |
+                    <a href="/help/" id="customFooter">Help</a> |
+                    <a href="/contact_us/" id="customFooter">Contact Us</a>
+                </div>
+            </div>
+            <br>  
+        </div>
+    </footer>
+</div>
+{% endblock %}

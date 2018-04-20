@@ -1,5 +1,4 @@
 {% load static %}
-{% load timetags %}
 <html>
 
 <head>
@@ -8,12 +7,8 @@
     <!-- css files -->
 
     <link href="https://fonts.googleapis.com/css?family=Syncopate" rel="stylesheet">
-
     <link rel="stylesheet" href="{% static 'css/home.css' %}" type="text/css">
-
-    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css" type="text/css">-->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" type="text/css">
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 
     <!-- fontawesome javascript -->
@@ -25,22 +20,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js " integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q " crossorigin="anonymous "></script>
     <!-- dataTables -->
     <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    
     <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
 
     <!--bootstrap.min.js-->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js " integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn " crossorigin="anonymous "></script>
+
     
+    <!--Ultimate date/time sorting-->
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
     <script src="//cdn.datatables.net/plug-ins/1.10.12/sorting/datetime-moment.js"></script>
+    
+
 </head>
 
-<body>
+<body class="bkgd">
     <!-- enables the datatable with the dataTables stylesheet-->
-    
     <script>
         $(document).ready(function() {
+            $('[data-toggle="tooltip"]').tooltip();
             $.fn.dataTable.moment( 'MMMM DD, YYYY, HH:mm A' );
             $('#ticketTable').DataTable({
                 "columnDefs": [{
@@ -50,81 +48,35 @@
             });
         });
     </script>
-    <script>
-        $(document).ready(function() {
-            $.fn.dataTable.moment( 'MMMM DD, YYYY, HH:mm A' );
-
-            $('#ticketTable').DataTable();
-        } );
-    </script>
     <!-- navbar -->
+             
     <nav class="navbar navbar-toggleable navbar-inverse bg-inverse navbar-fixed-top">
-        <a href="/" class="navbar-brand" style="font-family:Syncopate; font-size:25px">Easy Ticket</a>
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item mt-2">
-                <i class="fas fa-user fa-lg" style="color:lightgray"></i>
-            </li>
-            <li class="dropdown">
-                <a role='button' class="btn btn-dark dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:lightgray">{{ user.username }}</a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown01">
-                    <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
-                </div>
-            </li>
-        </ul>
-    </nav>
-
-    <div class="container-fluid">
-
-        <!-- new ticket button-->
-        <button type="button" class="btn btn-primary btn-lg mt-3" data-toggle="modal" id="newTicketBtn" data-target="#newTicketModal">New Ticket</button>
-
-        <!-- ticket card view -->
-        <div class="card mt-4 mb-4">
-            <div class="card-header">
-                <ul class="nav nav-tabs card-header-tabs pull-left" id="myTab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#allTab" role="tab" aria-controls="home" aria-selected="true">Open</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#allTab" role="tab" aria-controls="profile" aria-selected="false">In Progress</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#allTab" role="tab" aria-controls="contact" aria-selected="false">Closed</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#allTab" role="tab" aria-controls="contact" aria-selected="false">All</a>
-                    </li>
-                </ul>
+        <div class="container" style="width:100%">
+            <div class="navbar-header">
+                <a href="/" class="navbar-brand" style="font-family:Syncopate; font-size:25px">
+                    Easy Ticket
+                </a>
             </div>
-            <div class="card-body mx-2 py-3" style="overflow-x: scroll">
-                <table id="ticketTable" class="table table-hover mt-2 display">
-                    <thead class="thead-inverse">
-                        <tr>
-                            <th style="width: 90px; max-width: 90px;">Ticket #</th>
-                            <th style="width: 90px">Status</th>
-                            <th style="width: 400px">Description</th>
-                            <th style="width: 90px">Creator</th>
-                            <th style="width: 180px">Creation Date</th>
-                        </tr>
-                    </thead>
-                    <tbody style="font-size: 12">
-                        {% for ticket in tickets %}
-                        <tr class="clickable-row">
-                            <td class="ticket_id">{{ ticket.id }}</td>
-                            <td>{{ ticket.get_status_display }}</td>
-                            <td class="ellipses" href data-toggle="tooltip" data-placement="top" title="{{ ticket.description }}">{{ ticket.description }}</td>
-                            <td>{{ ticket.creator }}</td>
-                            <td class="ellipses">{{ ticket.creation_date|print_timestamp }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+            <div class="collapse navbar-collapse">    
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item mt-2">
+                        <i class="fas fa-user fa-lg" style="color:lightgray"></i>
+                    </li>
+                    <li class="dropdown">
+                        <a role='button' class="btn btn-dark dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:lightgray">{{ user.username }}</a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown01">
+                            <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
+                        </div>
+                    </li>
+                </ul>   
+            </div>  
         </div>
-        <!-- ticket card view -->
+    </nav>       
+        <div class="container-fluid">
+            {% block content %}
+            {% endblock %}
     </div>
     <!-- container-fluid -->
-
 
     <!--new ticket modal window-->
 
@@ -246,7 +198,7 @@
                     <br>
                     <div id="updateLog" class="form-group list-group">
                         <label for="detail_activity_log"><b>Update Log:</b></label>
-                        <div id="detail_activity_log" name="detail_activity_log" style="max-height: 200px; border: 1px solid grey; width: 100%; overflow-y: auto"></div>
+                        <div id="detail_activity_log" name="detail_activity_log" style="max-height: 200px; border: 1px solid grey; border-radius: 7px; width: 100%; overflow-y: auto"></div><br>
                     </div>
                     <div id="addUpdate" class="form-group">
                         <label for="exampleTextarea"><b>Add New Update:</b></label>
@@ -290,62 +242,9 @@
             </div>
         </div>
     </div>
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <hr>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4">
-                    <address>
-                        <center id="customFooter">
-                        &copy; 2018 Easy Ticket, Inc.
-                        </center>
-                    </address>
-                </div>
-                <div class="col-lg-4">
-                    <center>
-                        <img src={% static 'img/refined-logo-footer-notext.png' %} style="width:50px; height:40px">
-                    </center>
-                </div>
-                <div class="col-lg-4" id="customFooter">
-                    <a href="#" id="customFooter">About</a> |
-                    <a href="#" id="customFooter">Terms of Service</a> |
-                    <a href="#" id="customFooter">Help</a> |
-                    <a href="#" id="customFooter">Contact Us</a>
-                </div>
-            </div>
-            <br>
-        </div>
-    </footer>
+    
+    <br>
 </body>
-
-
-<!---------- S C R I P T S ------------>
-
-
-
-
-<script>
-    //used for table size when window is resized
-    window.onresize = function() {
-        if (window.innerWidth > 1000) {
-            document.getElementById("ticketTable ").style.width = "100% ";
-        } else {
-            document.getElementById("ticketTable ").style.width = "950px ";
-        }
-    }
-
-</script>
-
-<script>
-    $(document).ready(function() {
-        $('[data-toggle="tooltip"]').tooltip();
-    });
-</script>
-
 
 <!--local javascript utils file-->
 <script type="text/javascript " src={% static 'js/utils.js' %} charset="utf-8 "></script>

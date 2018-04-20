@@ -1,0 +1,132 @@
+{% extends "home.html" %}
+{% load static %}
+
+{% block content %}
+<div class="card mt-4 mb-4" style="min-width:350px; width:50%; margin-left: auto; margin-right: auto">
+    <div class="container-fluid">
+        <br><br>
+        <h1 class="display-4"><b>Help</b></h1>
+        <hr>
+        <br>
+        <div class="row">
+        <div class="col-12">
+            <p class="h4">Functionality Information</p>
+            <p class="h5">Viewing Tickets</p>
+            <p style="display:inline-block; margin-left: 40px">
+                After logging in, the first screen has four tabs, one with all open tickets,
+                in-progress tickets, closed tickets and all with the open tickets tab selected
+                by default. The tabs contain a list of all tickets and to see more detail, you can
+                click on one of the ticket entries in the list to open a dialog box for that ticket
+                for a full description of the ticket. Closing the dialog box closes the detail view
+                for that ticket.
+            </p>
+            <p class="h5">Creating a New Ticket</p>
+            <p style="display:inline-block; margin-left: 40px">
+                After logging in, you click the “New Ticket” button.
+                A dialog box pops up and you can fill in the following fields:
+            </p>
+            <ul style="display:inline-block; margin-left: 40px">
+                <li>
+                    Location (the building and room the issue is located in)
+                </li>
+                <li>
+                    Requestor (the person who originally reported the issue)
+                </li>
+                <li>
+                    Recipient (the person who will benefit from the fix, often the same as the requestor)
+                </li>
+                <li>
+                    Urgency (select one of several urgency levels)
+                </li>
+                <li>
+                    Status (could be “investigating,” “awaiting replacement equipment,” “resolved” when closed, etc.)
+                </li>
+                <li>
+                    Description (a description of the issue as originally reported)
+                </li>
+            </ul>
+            <p style="display:inline-block; margin-left: 40px">
+                Then you can exit out of the dialog box by clicking the “Create” button to finish creating the ticket, or “Cancel” to abort creating the ticket.
+            </p>
+
+            <p class="h5">Updating a Ticket</p>
+            <p style="display:inline-block; margin-left: 40px">
+                You can open a ticket in the detailed view and there will be a button to accept
+                a ticket that can be clicked. You will not be able to edit the original ticket
+                description message, but can add a follow-up message that will be appended with a 
+                new time stamp to the original description for which will be added to the update
+                log. You will also be able to change the urgency level and status of the ticket. 
+                Then you can click “update” or “cancel”.
+            </p>
+            <p class="h5">Closing a Ticket</p>
+            <p style="display:inline-block; margin-left: 40px">
+                When updating a ticket, there will be a “resolve” button in the dialog box.You can
+                click the button to which you will be prompted to describe how the issue was
+                resolved. Then you can click resolved, and the ticket status is automatically set
+                to "resolved" and the ticket is offically closed. This will move the ticket from its
+                respective tab into the list of closed tickets.
+            </p>
+            <p class="h4">
+            Helpful Tips
+            </p>
+            <p style="display:inline-block; margin-left: 40px">
+                When hovering over the description of a ticket, you will be able to see a pop up
+                box that will give you the full description of a given ticket.
+            </p>
+            <p class="h4">
+            FAQs
+            </p>
+            <p style="display:inline-block; margin-left: 40px">
+                Q: Will there be future updates?
+            </p>
+            <br>
+            <p style="display:inline-block; margin-left: 40px">
+                A: We are working on future updates that include:
+            </p>
+            <br>
+            <ul style="display:inline-block; margin-left: 40px">
+                <li>miscellaneous customization features for profiles</li>
+                <li>Enhance organization with "star" or "favorite" features for tickets</li>
+                <li>Ability to "watch" tickets even when you are not assigned to the ticket</li>
+            </ul>
+            <p style="display:inline-block; margin-left: 40px">
+                We are open to listening to feeback on other suggestions. Feel free to contact us!
+            </p>
+        </div>
+        </div>
+        </div>
+    
+    
+</div>
+<div class="card mt-4 mb-4" style="min-width:350px; width:50%; margin-left: auto; margin-right: auto">
+    <footer>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5" style="overflow: hidden;white-space: nowrap">
+                    <address id="customFooter">
+                        &copy; 2018 Easy Ticket, Inc.
+                    </address>
+                </div>
+                <div class="col-2">
+                    <center>
+                        <a href="/">
+                            <img src={% static 'img/refined-logo-footer-notext.png' %} style="width:50px; height:40px">
+                        </a>
+                    </center>
+                </div>
+                <div class="col-5" id="customFooter" style="text-align:right; overflow:auto;white-space: nowrap">
+                    <a href="/about/" id="customFooter">About</a> |
+                    <a href="/help/" id="customFooter">Help</a> |
+                    <a href="/contact_us/" id="customFooter">Contact Us</a>
+                </div>
+            </div>
+            <br>  
+        </div>
+    </footer>
+</div>
+{% endblock %}

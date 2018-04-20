@@ -11,5 +11,8 @@ urlpatterns = [
 	url(r'^get_updates/$', views.get_updates, name='get_updates'),
 	url(r'^assign_ticket/$', views.assign_ticket, name='assign_ticket'),
 	url(r'^close_ticket/$', views.close_ticket, name='close_ticket'),
+        url(r'^about/$', views.about, name='about'),
+        url(r'^help/$', views.help, name='help'),
+        url(r'^contact_us/$', views.contact_us, name='contact_us'),
 	url('', views.home, name='home'),
 ]
