@@ -116,6 +116,8 @@ tbody.onclick = function (e) {
             });
             if (result.length == 0) {
                 $('#updateLog').hide();
+            } else {
+                $('#updateLog').show();
             }
         }
     });
