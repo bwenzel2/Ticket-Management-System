@@ -266,7 +266,7 @@
             }
         });
         //$('#reload').load("{% url 'home' %}" +  ' #reload');
-        $.fn.dataTable.moment('MMMM DD, YYYY, HH:mm A');
+        $.fn.dataTable.moment('MMMM DD, YYYY, HH:mm:ss A');
         var table = $('#ticketTable').DataTable();
         table
             .columns(1)
@@ -279,7 +279,7 @@
 <script>
     $(document).ready(function() {
 
-        $.fn.dataTable.moment('MMMM DD, YYYY, HH:mm A');
+        $.fn.dataTable.moment('MMMM DD, YYYY, HH:mm:ss A');
         $('[data-toggle="tooltip"]').tooltip();
         var table = $('#ticketTable').DataTable({
             "order": [[ 0, "desc" ]],

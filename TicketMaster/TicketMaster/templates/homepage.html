@@ -42,7 +42,7 @@
                     <td>{{ ticket.get_status_display }}</td>
                     <td class="ellipses" href data-toggle="tooltip" data-placement="top" title="{{ ticket.description }}">{{ ticket.description }}</td>
                     <td>{{ ticket.creator }}</td>
-                    <td class="ellipses">{{ ticket.creation_date|date:'F d, Y h:i:s A' }}</td>
+                    <td class="ellipses">{{ ticket.creation_date|date:'F d, Y, h:i:s A' }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
