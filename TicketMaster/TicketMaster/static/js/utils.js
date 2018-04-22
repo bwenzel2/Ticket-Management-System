@@ -77,6 +77,7 @@ tbody.onclick = function (e) {
             var solution = result[0].fields.solution;
             $('#detail_solution').text(solution);
 
+            //urgency
             var urgency_int = result[0].fields.urgency;
             var urgency_string;
             if (urgency_int == 1) {
@@ -86,8 +87,14 @@ tbody.onclick = function (e) {
             } else if (urgency_int == 3) {
                 urgency_string = "Low";
             }
-
-            $('#urgency_detail').html(urgency_string);
+            $('#urgency_detail').val(urgency_string);
+            
+            //assigned to
+            var assigned_user = result[0].fields.assigned_user;
+            if (assigned_user != null) {
+                $('#acceptTicketButton').hide();
+                $('#assigned_to_detail').val(assigned_user);
+            }           
         },
         error: function (status) {
             alert('Error: ' + JSON.stringify(status));
@@ -226,6 +233,19 @@ function assignTicket() {
             //     return $(this).text() == ticketid;
             // }).closest("tr");
             // tableRow.find("td:eq(1)").text("In Progress");
+            
+            var assigned_user = result[0].fields.assigned_user[0];
+            if (assigned_user != null) {
+                $('#acceptTicketButton').hide();
+                $('#assigned_to_detail').val(assigned_user);
+            }
+            
+            //hide the accept ticket button
+            if (result.length == 0) {
+                $('#updateLog').hide();
+            }
+            
+            
             //reload to home page
             window.location = "{%url 'home'%}";
         },

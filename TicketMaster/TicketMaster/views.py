@@ -44,7 +44,7 @@ def get_ticket_details(request):
 	
 	#find the ticket with that id, return it as a response
 	ticket = Ticket.objects.filter(id=ticket_id)
-	response = serializers.serialize("json", ticket)
+	response = serializers.serialize("json", ticket, use_natural_foreign_keys=True)
 	return HttpResponse(response, content_type='application/json')
 
 		

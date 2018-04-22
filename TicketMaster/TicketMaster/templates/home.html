@@ -74,9 +74,8 @@
             </div>
         </div>
     </nav>
-        <div class="container-fluid">
-            {% block content %}
-            {% endblock %}
+    <div class="container-fluid">
+        {% block content %} {% endblock %}
     </div>
     <!-- container-fluid -->
 
@@ -151,77 +150,36 @@
                         </button>
                 </div>
                 <div class="modal-body">
-                    
-                    
-                                       
-                    <div class="d-flex">
-                        <div class="p-2"><b>Location:</b></div>
-                        <div class="p-2">location_detail</div>
-                        <div class="p-2"><b>Status:</b></div>
-                        <div class="p-2" >Status_detail</div>
+                    <div class="form-group row">
+                        <label for="location_detail" class="col-2 col-form-label "><b>Location:</b></label>
+                        <div class="col-md-4">
+                            <input readonly class="form-control" type="text" value="The Placeholder" id="location_detail" name="location_detail" style="border: 1px;">
+                        </div>
+                        <label for="status_detail" class="col-2 col-form-label"><b>Status:</b></label>
+                        <div class="col-md-4">
+                            <input readonly id="status_detail" class="form-control" type="text" value="Open" style="border: 0px;">
+                        </div>
                     </div>
-                    
-                    <div class="d-flex">
-                        <div class="p-2"><b>Requestor:</b></div>
-                        <div class="p-2">Requestor detail</div>
-                        <div class="p-2"><b>Recipient:</b></div>
-                        <div class="p-2">recipient_detail</div>
+                    <div class="form-group row">
+                        <label for="requestor_detail" class="col-2 col-form-label"><b>Requestor:</b></label>
+                        <div class="col-md-4">
+                            <input readonly class="form-control" type="text" value="The Placeholder Requestor" id="requestor_detail" style="border: 0px;">
+                        </div>
+                        <label for="recipient_detail" class="col-2 col-form-label"><b>Recipient:</b></label>
+                        <div class="col-md-4">
+                            <input readonly class="form-control" type="text" value="The Placeholder Recipient" id="recipient_detail" style="border: 0px;">
+                        </div>
                     </div>
-                    
-                    <div class="d-flex">
-                        <div class="p-2" ><b>Assign To:</b></div>
-                        <div class="p-2">Assign_to</div>
-                        <div class="p-2"><b>Urgency</b></div>
-                        <span for=location_detail style="width:200px">
-                            <select name="urgency" class="custom-select" required>
-                                <option value="">Urgency level</option>
-                                <option value="1" href="#">High</option>
-                                <option value="2" href="#">Medium</option>
-                                <option value="3" href="#">Low</option>
-                            </select>
-                         </span>
+                    <div class="form-group row">
+                        <label for="urgency_detail" class="col-2 col-form-label"><b>Urgency:</b></label>
+                        <div class="col-md-4">
+                            <input readonly class="form-control" type="text" value="N/A" id="urgency_detail" style="border: 0px;">
+                        </div>
+                        <label for="assigned_to_detail" class="col-2 col-form-label"><b>Assigned to:</b></label>
+                        <div class="col-md-4">
+                            <input readonly class="form-control" type="text" value="N/A" id="assigned_to_detail" style="border: 0px;">
+                        </div>
                     </div>
-                    
-                    
-                     <h3>Details</h3>
-                    <hr>
-                    <div class="container">
-                    <div class="row">
-                        <span for=location_detail style="width:90px;min-width: 90"><b>Location:</b></span>
-                         <span for=location_detail style="width:250px">location_detail</span>
-                         <span for=location_detail style="width:80px"><b>Status:</b></span>
-                        <span for=location_detail style="width:100px">status_detail</span>
-                     </div>
-                        <p></p>
-                    <div class="row">
-                        <span for=location_detail style="width:90px;"><b>Requestor:</b></span>
-                         <span for=location_detail style="width:250px">requestor_detail</span>
-                         <span for=location_detail style="width:80px"><b>Recipient:</b></span>
-                        <span for=location_detail style="width:90px">recipient_detail</span>
-                     </div>
-                        <p></p>
-
-                     <div class="row">
-                        <span for=location_detail style="width:90px"><b>Assign To:</b></span>
-                         <span for=location_detail style="width:250px">assigned_to:</span>
-                         <span for=location_detail style="width:80px"><b>Urgency:</b></span>
-                        <span for=location_detail style="width:200px">
-                            <select name="urgency" class="custom-select" required>
-                                <option value="">Urgency level</option>
-                                <option value="1" href="#">High</option>
-                                <option value="2" href="#">Medium</option>
-                                <option value="3" href="#">Low</option>
-                            </select>
-                         </span>
-                     </div>  
-                    <p></p>
-
-                    </div>
-                    
-                    
-                    
-                    
-                    
                     <div class="form-group" style="cursor: default">
                         <h3 for="detail_description">Description</h3>
                         <hr>
@@ -284,74 +242,73 @@
 <script type="text/javascript " src={% static 'js/utils.js' %} charset="utf-8 "></script>
 
 <script>
-$('a[data-toggle="tab"]').on('shown.bs.tab', function (e){
-    var test = this.id;
-    var search_string="";
-    if (test == 'open-tab'){
-      search_string="Open";
-    }
-    else if (test == 'closed-tab'){
-      search_string="Closed";
-    }
-    else if (test == 'progress-tab'){
-      search_string="In progress";
-    }
-    else if (test == 'all-tab'){
-      search_string="";
-    }
-
-
-    //table.ajax.reload();
-    $.ajax({
-
-        success: function () {
-          //
-
-
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+        var test = this.id;
+        var search_string = "";
+        if (test == 'open-tab') {
+            search_string = "Open";
+        } else if (test == 'closed-tab') {
+            search_string = "Closed";
+        } else if (test == 'progress-tab') {
+            search_string = "In progress";
+        } else if (test == 'all-tab') {
+            search_string = "";
         }
-      });
-      //$('#reload').load("{% url 'home' %}" +  ' #reload');
-      $.fn.dataTable.moment( 'MMMM DD, YYYY, HH:mm A' );
-      var table =$('#ticketTable').DataTable();
-      table
-       .columns( 1 )
-       .search( search_string )
-       .draw();
 
 
-    //alert(test);
+        //table.ajax.reload();
+        $.ajax({
 
-});
+            success: function() {
+                //
+
+
+            }
+        });
+        //$('#reload').load("{% url 'home' %}" +  ' #reload');
+        $.fn.dataTable.moment('MMMM DD, YYYY, HH:mm A');
+        var table = $('#ticketTable').DataTable();
+        table
+            .columns(1)
+            .search(search_string)
+            .draw();
+
+
+        //alert(test);
+
+    });
+
 </script>
 <script>
-
     $(document).ready(function() {
 
-        $.fn.dataTable.moment( 'MMMM DD, YYYY, HH:mm A' );
+        $.fn.dataTable.moment('MMMM DD, YYYY, HH:mm A');
         $('[data-toggle="tooltip"]').tooltip();
-        var table =$('#ticketTable').DataTable({
+        var table = $('#ticketTable').DataTable({
             //ajax: data,
             "columnDefs": [{
                 "orderable": false,
                 "targets": 2
             }],
         });
-         table
-          .columns( 1 )
-          .search( 'Open' )
-          .draw();
+        table
+            .columns(1)
+            .search('Open')
+            .draw();
     });
+
 </script>
 
 <script>
-  //used for table size when window is resized
-  window.onresize = function() {
-      if (window.innerWidth > 1000) {
-          document.getElementById("ticketTable ").style.width = "100% ";
-      } else {
-          document.getElementById("ticketTable ").style.width = "950px ";
-      }
-  }
+    //used for table size when window is resized
+    window.onresize = function() {
+        if (window.innerWidth > 1000) {
+            document.getElementById("ticketTable ").style.width = "100% ";
+        } else {
+            document.getElementById("ticketTable ").style.width = "950px ";
+        }
+    }
 
 </script>
+
 </html>
