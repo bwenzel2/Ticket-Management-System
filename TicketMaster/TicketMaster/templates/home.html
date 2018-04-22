@@ -189,7 +189,7 @@
                     </div>
                     <br>
                     <div id="updateLog" class="form-group list-group">
-                        <label for="detail_activity_log"><b>Update Log:</b></label>
+                        <label for="detail_activity_log"><h3>Update Log</h3></b></label>
                         <div id="detail_activity_log" name="detail_activity_log" style="max-height: 200px; border: 1px solid grey; border-radius: 7px; width: 100%; overflow-y: auto"></div><br>
                     </div>
                     <div id="addUpdate" class="form-group">
@@ -273,9 +273,6 @@
             .search(search_string)
             .draw();
 
-
-        //alert(test);
-
     });
 
 </script>
@@ -285,7 +282,7 @@
         $.fn.dataTable.moment('MMMM DD, YYYY, HH:mm A');
         $('[data-toggle="tooltip"]').tooltip();
         var table = $('#ticketTable').DataTable({
-            //ajax: data,
+            "order": [[ 0, "desc" ]],
             "columnDefs": [{
                 "orderable": false,
                 "targets": 2
@@ -296,18 +293,6 @@
             .search('Open')
             .draw();
     });
-
-</script>
-
-<script>
-    //used for table size when window is resized
-    window.onresize = function() {
-        if (window.innerWidth > 1000) {
-            document.getElementById("ticketTable ").style.width = "100% ";
-        } else {
-            document.getElementById("ticketTable ").style.width = "950px ";
-        }
-    }
 
 </script>
 
