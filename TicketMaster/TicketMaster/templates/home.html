@@ -251,11 +251,53 @@
 <!--local javascript utils file-->
 <script type="text/javascript " src={% static 'js/utils.js' %} charset="utf-8 "></script>
 
-
 <script>
+$('a[data-toggle="tab"]').on('shown.bs.tab', function (e){
+    var test = this.id;
+    var search_string="";
+    if (test == 'open-tab'){
+      search_string="Open";
+    }
+    else if (test == 'closed-tab'){
+      search_string="Closed";
+    }
+    else if (test == 'progress-tab'){
+      search_string="In progress";
+    }
+    else if (test == 'all-tab'){
+      search_string="";
+    }
+
+
+    //table.ajax.reload();
+    $.ajax({
+
+        success: function () {
+          //
+
+
+        }
+      });
+      //$('#reload').load("{% url 'home' %}" +  ' #reload');
+      $.fn.dataTable.moment( 'MMMM DD, YYYY, HH:mm A' );
+      var table =$('#ticketTable').DataTable();
+      table
+       .columns( 1 )
+       .search( search_string )
+       .draw();
+
+
+    //alert(test);
+
+});
+</script>
+<script>
+
     $(document).ready(function() {
+
         $.fn.dataTable.moment( 'MMMM DD, YYYY, HH:mm A' );
         var table =$('#ticketTable').DataTable({
+            //ajax: data,
             "columnDefs": [{
                 "orderable": false,
                 "targets": 2
@@ -265,59 +307,6 @@
           .columns( 1 )
           .search( 'Open' )
           .draw();
-    });
-</script>
-
-
-<script>
-    $("#open-tab").click(function() {
-
-        var table =$('#ticketTable').DataTable();
-
-         table
-          .columns( 1 )
-          .search( 'Open' )
-          .draw();
-        //alert("test");
-    });
-</script>
-
-<script>
-    $("#progress-tab").click(function() {
-
-        var table =$('#ticketTable').DataTable();
-
-         table
-          .columns( 1 )
-          .search( 'In progress' )
-          .draw();
-        //alert("test");
-    });
-</script>
-
-<script>
-    $("#closed-tab").click(function() {
-
-        var table =$('#ticketTable').DataTable();
-
-         table
-          .columns( 1 )
-          .search( 'Closed' )
-          .draw();
-        //alert("test");
-    });
-</script>
-
-<script>
-    $("#all-tab").click(function() {
-
-        var table =$('#ticketTable').DataTable();
-
-         table
-          .columns( 1 )
-          .search( '' )
-          .draw();
-        //alert("test");
     });
 </script>
 

@@ -209,23 +209,25 @@ function assignTicket() {
             //alert('Success' + result[0].fields.status);
 
             //reset update text input field value
-            var status_int = result[0].fields.status;
-            var status_string;
-            if (status_int == "0") {
-                status_string = "Open";
-            } else if (status_int == "1") {
-                status_string = "In Progress";
-            } else if (status_int == "2") {
-                status_string = "Closed";
-            }
-            $('#status_detail').val(status_string);
-
-
-            //update the status in the ticket table
-            var tableRow = $("td").filter(function () {
-                return $(this).text() == ticketid;
-            }).closest("tr");
-            tableRow.find("td:eq(1)").text("In Progress");
+            // var status_int = result[0].fields.status;
+            // var status_string;
+            // if (status_int == "0") {
+            //     status_string = "Open";
+            // } else if (status_int == "1") {
+            //     status_string = "In Progress";
+            // } else if (status_int == "2") {
+            //     status_string = "Closed";
+            // }
+            // $('#status_detail').val(status_string);
+            //
+            //
+            // //update the status in the ticket table
+            // var tableRow = $("td").filter(function () {
+            //     return $(this).text() == ticketid;
+            // }).closest("tr");
+            // tableRow.find("td:eq(1)").text("In Progress");
+            //reload to home page
+            window.location = "{%url 'home'%}";
         },
         error: function (status) {
             alert('Error: ' + JSON.stringify(status));
@@ -269,10 +271,12 @@ function closeTicket() {
         },
         success: function (result) {
             //update the status in the ticket table
-            var tableRow = $("td").filter(function () {
-                return $(this).text() == ticketid;
-            }).closest("tr");
-            tableRow.find("td:eq(1)").text("Closed");
+            // var tableRow = $("td").filter(function () {
+            //     return $(this).text() == ticketid;
+            // }).closest("tr");
+            // tableRow.find("td:eq(1)").text("Closed");
+            //reload to home page
+            window.location = "{%url 'home'%}";
         },
         error: function (status) {
             alert('Error: ' + JSON.stringify(status));
