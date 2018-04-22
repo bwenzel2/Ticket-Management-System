@@ -296,6 +296,7 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e){
     $(document).ready(function() {
 
         $.fn.dataTable.moment( 'MMMM DD, YYYY, HH:mm A' );
+        $('[data-toggle="tooltip"]').tooltip();
         var table =$('#ticketTable').DataTable({
             //ajax: data,
             "columnDefs": [{
