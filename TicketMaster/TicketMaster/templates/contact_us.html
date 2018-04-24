@@ -2,6 +2,9 @@
 {% load static %}
 
 {% block content %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
 <div class="card mt-4 mb-4" style="min-width:350px; width:50%; margin-left: auto; margin-right: auto">
     <div class="container-fluid">
         <br><br>
@@ -23,22 +26,24 @@
                 </p>
                 
                 <form>
+                    {% csrf_token %}
                     <div class="form-group">
                         <label for="exampleInputEmail1"><b>Email Address</b></label>
-                        <input type="email" class="form-control" aria-describedby="emailHelp">
+                         <input type="text" name="textField"class="form-control" aria-describedby="emailHelp" />
                     </div>
                     <div class="form-group">
                         <label for="validationDefault03"><b>Subject</b></label>
-                        <input type="text" class="form-control">
+                        <input name="subject" type="text" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlTextarea1"><b>How can we help?</b></label>
-                        <textarea class="form-control" rows="5"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary" style="background-color:12A5F4">Submit</button>
-                </form>
-                
+                      
+                        <textarea rows="5" class="form-control" id="texta"></textarea><br>
+                    </div>    
+                    <input type="button" value="submit" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="background-color:12A5F4"/>
+                </form>     
             </div>
+ 
         </div>
     </div>
 </div>
@@ -73,4 +78,48 @@
         </div>
     </footer>
 </div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Thank you!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Your feedback was received!
+      </div>
+      <div class="modal-footer">
+        <button onclick=location=URL style="background-color:12A5F4">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+$(document).ready(function() {
+    $('input[type="button"]').attr('disabled', true);
+    
+    $('input[type="text"],textarea').on('keyup',function() {
+        var textarea_value = $("#texta").val();
+        var text_value = $('input[name="textField"]').val();
+        
+        if(textarea_value != '' && text_value != '') {
+            $('input[type="button"]').attr('disabled', false);
+        } else {
+            $('input[type="button"]').attr('disabled', true);
+        }
+    });
+});
+</script>
+
+
 {% endblock %}
+
+
