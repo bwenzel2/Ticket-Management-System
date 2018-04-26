@@ -17,3 +17,15 @@ class TickeModelTests(TestCase):
 	def testTicketDescription(self):
 		new_ticket = Ticket.objects.get(id=1)
 		self.assertEqual(new_ticket.description, "This is a sample description")
+
+	def testTicketUrgency(self):
+		new_ticket = Ticket.objects.get(id=1)
+		self.assertEqual(new_ticket.urgency, "2")
+
+	def testTicketRequestor(self):
+		new_ticket = Ticket.objects.get(id=1)
+		self.assertEqual(new_ticket.requestor, "Sample Requestor")
+
+	def testTicketRecipient(self):
+		new_ticket = Ticket.objects.get(id=1)
+		self.assertEqual(new_ticket.recipient, "Sample Recipient")
